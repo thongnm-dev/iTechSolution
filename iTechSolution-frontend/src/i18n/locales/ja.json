@@ -1,0 +1,69 @@
+{
+  "nav": {
+    "home": "ホーム",
+    "about": "会社概要",
+    "services": "サービス",
+    "portfolio": "実績",
+    "blog": "ブログ",
+    "contact": "お問い合わせ",
+    "cta": "相談する"
+  },
+  "home": {
+    "hero": {
+      "title": "ビジネスを支えるテクノロジーソリューション",
+      "subtitle": "コンサルティングから導入まで、企業のデジタル変革をサポートします。",
+      "ctaPrimary": "無料相談を申し込む",
+      "ctaSecondary": "サービスを見る"
+    },
+    "about": {
+      "title": "会社概要",
+      "description": "会社の歴史、ビジョン、ミッションについての簡単な紹介。",
+      "stats": {
+        "years": "年の経験",
+        "projects": "完了したプロジェクト",
+        "clients": "クライアント数"
+      }
+    },
+    "services": {
+      "title": "サービス内容",
+      "subtitle": "主要なサービスのご紹介"
+    },
+    "portfolio": {
+      "title": "主な実績",
+      "viewAll": "すべての実績を見る"
+    },
+    "testimonials": {
+      "title": "お客様の声"
+    },
+    "blogPreview": {
+      "title": "最新記事",
+      "viewAll": "すべての記事を見る"
+    },
+    "cta": {
+      "title": "一緒にお仕事をしませんか？",
+      "subtitle": "お気軽にご相談ください。最適なソリューションをご提案します。",
+      "button": "お問い合わせ"
+    }
+  },
+  "blog": {
+    "title": "ブログ・ニュース",
+    "searchPlaceholder": "記事を検索...",
+    "allCategories": "すべて",
+    "readMore": "続きを読む",
+    "relatedPosts": "関連記事",
+    "tags": "タグ",
+    "minRead": "分で読めます"
+  },
+  "footer": {
+    "company": "会社情報",
+    "services": "サービス",
+    "contact": "お問い合わせ",
+    "newsletter": "ニュースレター登録",
+    "newsletterPlaceholder": "メールアドレス",
+    "subscribe": "登録",
+    "rights": "All rights reserved."
+  },
+  "common": {
+    "comingSoon": "このページは準備中です。"
+  }
+}

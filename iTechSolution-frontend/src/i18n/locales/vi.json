@@ -1,0 +1,69 @@
+{
+  "nav": {
+    "home": "Trang chủ",
+    "about": "Giới thiệu",
+    "services": "Dịch vụ",
+    "portfolio": "Dự án",
+    "blog": "Blog",
+    "contact": "Liên hệ",
+    "cta": "Nhận tư vấn"
+  },
+  "home": {
+    "hero": {
+      "title": "Giải pháp công nghệ cho doanh nghiệp của bạn",
+      "subtitle": "Chúng tôi đồng hành cùng doanh nghiệp trong chuyển đổi số, từ tư vấn đến triển khai giải pháp.",
+      "ctaPrimary": "Nhận tư vấn miễn phí",
+      "ctaSecondary": "Xem dịch vụ"
+    },
+    "about": {
+      "title": "Về chúng tôi",
+      "description": "Giới thiệu ngắn về lịch sử hình thành, tầm nhìn và sứ mệnh của công ty.",
+      "stats": {
+        "years": "Năm kinh nghiệm",
+        "projects": "Dự án hoàn thành",
+        "clients": "Khách hàng"
+      }
+    },
+    "services": {
+      "title": "Dịch vụ của chúng tôi",
+      "subtitle": "Các nhóm dịch vụ chính chúng tôi cung cấp"
+    },
+    "portfolio": {
+      "title": "Dự án nổi bật",
+      "viewAll": "Xem tất cả dự án"
+    },
+    "testimonials": {
+      "title": "Khách hàng nói gì về chúng tôi"
+    },
+    "blogPreview": {
+      "title": "Bài viết mới nhất",
+      "viewAll": "Xem tất cả bài viết"
+    },
+    "cta": {
+      "title": "Sẵn sàng hợp tác cùng chúng tôi?",
+      "subtitle": "Liên hệ ngay để được tư vấn giải pháp phù hợp nhất.",
+      "button": "Liên hệ ngay"
+    }
+  },
+  "blog": {
+    "title": "Blog & Tin tức",
+    "searchPlaceholder": "Tìm kiếm bài viết...",
+    "allCategories": "Tất cả",
+    "readMore": "Đọc thêm",
+    "relatedPosts": "Bài viết liên quan",
+    "tags": "Thẻ",
+    "minRead": "phút đọc"
+  },
+  "footer": {
+    "company": "Công ty",
+    "services": "Dịch vụ",
+    "contact": "Liên hệ",
+    "newsletter": "Đăng ký nhận tin",
+    "newsletterPlaceholder": "Email của bạn",
+    "subscribe": "Gửi",
+    "rights": "Đã đăng ký bản quyền."
+  },
+  "common": {
+    "comingSoon": "Nội dung đang được xây dựng."
+  }
+}

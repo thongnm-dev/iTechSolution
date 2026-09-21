@@ -1,0 +1,15 @@
+// Accent (Amber) tokens — not part of PrimeVue's semantic slots, used for
+// badges/highlights outside PrimeVue components (see plugins/primevue.ts for
+// the indigo primary + gray surface scale registered with PrimeVue itself).
+:root {
+  --accent-50: #fffbeb;
+  --accent-100: #fef3c7;
+  --accent-400: #fbbf24;
+  --accent-500: #f59e0b;
+  --accent-600: #d97706;
+  --accent-700: #b45309;
+
+  --font-sans: -apple-system, 'Segoe UI', system-ui, sans-serif;
+
+  --header-height: 72px;
+}

@@ -1,0 +1,69 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "blog": "Blog",
+    "contact": "Contact",
+    "cta": "Get in touch"
+  },
+  "home": {
+    "hero": {
+      "title": "Technology solutions for your business",
+      "subtitle": "We help businesses through digital transformation, from consulting to full-scale implementation.",
+      "ctaPrimary": "Get a free consultation",
+      "ctaSecondary": "View services"
+    },
+    "about": {
+      "title": "About us",
+      "description": "A short introduction to our history, vision and mission.",
+      "stats": {
+        "years": "Years of experience",
+        "projects": "Projects delivered",
+        "clients": "Clients"
+      }
+    },
+    "services": {
+      "title": "Our services",
+      "subtitle": "The main service groups we provide"
+    },
+    "portfolio": {
+      "title": "Featured projects",
+      "viewAll": "View all projects"
+    },
+    "testimonials": {
+      "title": "What our clients say"
+    },
+    "blogPreview": {
+      "title": "Latest articles",
+      "viewAll": "View all articles"
+    },
+    "cta": {
+      "title": "Ready to work with us?",
+      "subtitle": "Get in touch and we'll help you find the right solution.",
+      "button": "Contact us"
+    }
+  },
+  "blog": {
+    "title": "Blog & News",
+    "searchPlaceholder": "Search articles...",
+    "allCategories": "All",
+    "readMore": "Read more",
+    "relatedPosts": "Related posts",
+    "tags": "Tags",
+    "minRead": "min read"
+  },
+  "footer": {
+    "company": "Company",
+    "services": "Services",
+    "contact": "Contact",
+    "newsletter": "Newsletter",
+    "newsletterPlaceholder": "Your email",
+    "subscribe": "Subscribe",
+    "rights": "All rights reserved."
+  },
+  "common": {
+    "comingSoon": "This page is under construction."
+  }
+}
