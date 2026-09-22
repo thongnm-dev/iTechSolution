@@ -18,7 +18,8 @@ onMounted(async () => {
         <span class="breadcrumb">Trang chủ / <strong>Dịch vụ</strong></span>
         <h1 class="section-title">Dịch vụ của chúng tôi</h1>
         <p class="section-subtitle">
-          [Mô tả ngắn về nhóm dịch vụ công nghệ mà công ty cung cấp cho khách hàng doanh nghiệp]
+          Chúng tôi cung cấp giải pháp công nghệ toàn diện cho doanh nghiệp — từ tư vấn,
+          thiết kế, phát triển đến vận hành — giúp bạn tăng tốc chuyển đổi số và tối ưu chi phí.
         </p>
       </div>
     </section>
@@ -26,19 +27,28 @@ onMounted(async () => {
     <section class="section">
       <div class="container services-grid">
         <div v-for="service in services" :key="service.title" class="service-card">
-          <div class="service-card__icon">
-            <i :class="['pi', service.icon]" />
+          <div class="service-card__media">
+            <img
+              v-if="service.image"
+              :src="service.image"
+              :alt="service.title"
+              class="service-card__img"
+              loading="lazy"
+            />
+            <i v-else :class="['pi', service.icon]" />
           </div>
-          <div class="service-card__title">{{ service.title }}</div>
-          <p class="service-card__desc">{{ service.description }}</p>
+          <div class="service-card__body">
+            <div class="service-card__title">{{ service.title }}</div>
+            <p class="service-card__desc">{{ service.description }}</p>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="cta">
       <div class="container cta__inner">
-        <h2>[Bạn cần tư vấn giải pháp phù hợp?]</h2>
-        <p>[Liên hệ với chúng tôi để được tư vấn miễn phí về dịch vụ phù hợp với doanh nghiệp bạn]</p>
+        <h2>Bạn cần tư vấn giải pháp phù hợp?</h2>
+        <p>Liên hệ với chúng tôi để được tư vấn miễn phí về dịch vụ phù hợp với doanh nghiệp bạn.</p>
         <RouterLink to="/contact">
           <Button label="Liên hệ ngay" size="large" severity="contrast" />
         </RouterLink>
@@ -77,23 +87,31 @@ onMounted(async () => {
 .service-card {
   border: 1px solid var(--p-content-border-color);
   border-radius: 8px;
-  padding: 28px;
+  overflow: hidden;
 }
 
-.service-card__icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 8px;
+.service-card__media {
+  height: 180px;
   background: var(--p-content-hover-background);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 16px;
 }
 
-.service-card__icon .pi {
-  font-size: 20px;
+.service-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.service-card__media .pi {
+  font-size: 36px;
   color: var(--p-primary-600);
+}
+
+.service-card__body {
+  padding: 24px 28px 28px;
 }
 
 .service-card__title {

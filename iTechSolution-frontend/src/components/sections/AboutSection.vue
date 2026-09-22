@@ -13,9 +13,13 @@ const stats = [
 <template>
   <section class="section">
     <div class="container about">
-      <div v-reveal class="about__media" aria-hidden="true">
-        <i class="pi pi-image" />
-        <span>[Ảnh văn phòng / đội ngũ]</span>
+      <div v-reveal class="about__media">
+        <img
+          class="about__img"
+          src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=900&q=70"
+          alt="Đội ngũ iTechSolution làm việc cùng nhau"
+          loading="lazy"
+        />
       </div>
       <div v-reveal="150" class="about__content">
         <h2 class="section-title">{{ t('home.about.title') }}</h2>
@@ -46,16 +50,17 @@ const stats = [
 .about__media {
   flex: 1;
   height: 280px;
-  border: 1px dashed var(--p-surface-300);
   border-radius: 8px;
+  overflow: hidden;
   background: var(--p-content-hover-background);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  color: var(--p-text-muted-color);
-  font-size: 13px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+}
+
+.about__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .about__content {

@@ -25,7 +25,7 @@ onMounted(async () => {
         <img v-if="content.storyImage" :src="content.storyImage" alt="" class="story__media story__media--img" />
         <div v-else class="story__media" aria-hidden="true">
           <i class="pi pi-image" />
-          <span>[Ảnh văn phòng / đội ngũ]</span>
+          <span>Ảnh văn phòng / đội ngũ</span>
         </div>
         <div class="story__content">
           <h2 class="section-title">Câu chuyện của chúng tôi</h2>

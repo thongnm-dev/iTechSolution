@@ -15,6 +15,16 @@ const relatedPosts = ref<Post[]>([])
 
 const sanitizedContent = computed(() => (post.value ? DOMPurify.sanitize(post.value.content) : ''))
 
+const shareLinks = computed(() => {
+  const url = encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')
+  const title = encodeURIComponent(post.value?.title ?? '')
+  return [
+    { icon: 'pi-facebook', label: 'Facebook', href: `https://www.facebook.com/sharer/sharer.php?u=${url}` },
+    { icon: 'pi-twitter', label: 'X', href: `https://twitter.com/intent/tweet?url=${url}&text=${title}` },
+    { icon: 'pi-linkedin', label: 'LinkedIn', href: `https://www.linkedin.com/sharing/share-offsite/?url=${url}` },
+  ]
+})
+
 async function loadPost(slug: string) {
   post.value = (await getPostBySlug(slug)) ?? null
   relatedPosts.value = post.value ? await getRelatedPosts(post.value.slug) : []
@@ -46,14 +56,27 @@ onMounted(() => loadPost(props.slug))
     <img v-if="post.coverImage" :src="post.coverImage" :alt="post.title" class="container cover cover--img" />
     <section v-else class="container cover" aria-hidden="true">
       <i class="pi pi-image" />
-      <span>[Ảnh đại diện bài viết]</span>
+      <span>Ảnh đại diện bài viết</span>
     </section>
 
     <section class="container post-body">
       <article class="post-body__content" v-html="sanitizedContent" />
       <aside class="post-body__sidebar">
         <div class="widget">
-          <div class="widget__title">[Chia sẻ bài viết]</div>
+          <div class="widget__title">Chia sẻ bài viết</div>
+          <div class="widget__share">
+            <a
+              v-for="link in shareLinks"
+              :key="link.label"
+              :href="link.href"
+              target="_blank"
+              rel="noopener noreferrer"
+              :aria-label="`Chia sẻ lên ${link.label}`"
+              class="share-btn"
+            >
+              <i :class="['pi', link.icon]" />
+            </a>
+          </div>
         </div>
       </aside>
     </section>
@@ -232,6 +255,30 @@ onMounted(() => loadPost(props.slug))
   padding: 16px;
   font-size: 13px;
   font-weight: 600;
+}
+
+.widget__share {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.share-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--p-content-border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--p-text-muted-color);
+  transition: all 0.15s ease;
+}
+
+.share-btn:hover {
+  color: #fff;
+  background: var(--p-primary-500);
+  border-color: var(--p-primary-500);
 }
 
 .post-footer {

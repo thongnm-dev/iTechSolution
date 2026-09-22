@@ -219,14 +219,19 @@ class SampleDataSeeder extends Seeder
         }
 
         $services = [
-            ['icon' => 'pi-code', 'title' => 'Phát triển Web', 'description' => 'Xây dựng website và ứng dụng web hiện đại, hiệu năng cao với Vue.js và Laravel.'],
-            ['icon' => 'pi-mobile', 'title' => 'Ứng dụng di động', 'description' => 'Thiết kế và phát triển ứng dụng di động đa nền tảng cho iOS và Android.'],
-            ['icon' => 'pi-server', 'title' => 'Giải pháp Backend & API', 'description' => 'Xây dựng hệ thống backend, API RESTful ổn định, bảo mật và dễ mở rộng.'],
-            ['icon' => 'pi-cloud', 'title' => 'Triển khai & DevOps', 'description' => 'Container hóa, CI/CD và triển khai hạ tầng cloud cho ứng dụng của bạn.'],
+            ['icon' => 'pi-code', 'image' => 'photo-1547658719-da2b51169166', 'title' => 'Phát triển Web', 'description' => 'Xây dựng website và ứng dụng web hiện đại, hiệu năng cao với Vue.js và Laravel.'],
+            ['icon' => 'pi-mobile', 'image' => 'photo-1512941937669-90a1b58e7e9c', 'title' => 'Ứng dụng di động', 'description' => 'Thiết kế và phát triển ứng dụng di động đa nền tảng cho iOS và Android.'],
+            ['icon' => 'pi-server', 'image' => 'photo-1558494949-ef010cbdcc31', 'title' => 'Giải pháp Backend & API', 'description' => 'Xây dựng hệ thống backend, API RESTful ổn định, bảo mật và dễ mở rộng.'],
+            ['icon' => 'pi-cloud', 'image' => 'photo-1451187580459-43490279c0fa', 'title' => 'Triển khai & DevOps', 'description' => 'Container hóa, CI/CD và triển khai hạ tầng cloud cho ứng dụng của bạn.'],
         ];
 
         foreach ($services as $order => $data) {
-            Service::firstOrCreate(['title' => $data['title']], [...$data, 'order' => $order]);
+            Service::updateOrCreate(['title' => $data['title']], [
+                'icon' => $data['icon'],
+                'image' => $this->storeUnsplashImage($data['image'], 'services'),
+                'description' => $data['description'],
+                'order' => $order,
+            ]);
         }
 
         $projects = [

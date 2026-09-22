@@ -12,7 +12,10 @@ const year = new Date().getFullYear()
     <div class="container app-footer__grid">
       <div class="app-footer__col app-footer__brand">
         <div class="app-footer__logo">iTechSolution</div>
-        <p>[Mô tả ngắn về công ty]</p>
+        <p>
+          iTechSolution đồng hành cùng doanh nghiệp trong hành trình chuyển đổi số — từ
+          phát triển web, ứng dụng di động đến giải pháp backend và triển khai cloud.
+        </p>
       </div>
 
       <div class="app-footer__col">
@@ -24,8 +27,8 @@ const year = new Date().getFullYear()
 
       <div class="app-footer__col">
         <div class="app-footer__heading">{{ t('footer.services') }}</div>
-        <RouterLink to="/services">[Dịch vụ 1]</RouterLink>
-        <RouterLink to="/services">[Dịch vụ 2]</RouterLink>
+        <RouterLink to="/services">Phát triển Web</RouterLink>
+        <RouterLink to="/services">Giải pháp Backend &amp; API</RouterLink>
       </div>
 
       <div class="app-footer__col">

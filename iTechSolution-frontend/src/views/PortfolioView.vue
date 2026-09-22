@@ -17,7 +17,8 @@ onMounted(async () => {
         <span class="breadcrumb">Trang chủ / <strong>Dự án</strong></span>
         <h1 class="section-title">Dự án nổi bật</h1>
         <p class="section-subtitle">
-          [Mô tả ngắn giới thiệu các dự án/khách hàng tiêu biểu công ty đã triển khai]
+          Những dự án tiêu biểu chúng tôi đã triển khai cho khách hàng ở nhiều lĩnh vực —
+          từ thương mại điện tử, y tế đến quản trị doanh nghiệp.
         </p>
       </div>
     </section>
@@ -28,7 +29,7 @@ onMounted(async () => {
           <img v-if="project.image" :src="project.image" :alt="project.title" class="portfolio-card__media portfolio-card__media--img" />
           <div v-else class="portfolio-card__media" aria-hidden="true">
             <i class="pi pi-image" />
-            <span>[Ảnh dự án]</span>
+            <span>Ảnh dự án</span>
           </div>
           <span class="portfolio-card__category">{{ project.category }}</span>
           <div class="portfolio-card__title">{{ project.title }}</div>

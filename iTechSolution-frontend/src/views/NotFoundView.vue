@@ -5,7 +5,7 @@ import Button from 'primevue/button'
 <template>
   <div class="container section not-found">
     <h1>404</h1>
-    <p>[Không tìm thấy trang bạn yêu cầu]</p>
+    <p>Rất tiếc, chúng tôi không tìm thấy trang bạn yêu cầu.</p>
     <RouterLink to="/">
       <Button label="Về trang chủ" />
     </RouterLink>

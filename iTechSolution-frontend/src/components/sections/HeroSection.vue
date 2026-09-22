@@ -21,8 +21,20 @@ const { t } = useI18n()
         </div>
       </div>
       <div v-reveal="150" class="hero__media" aria-hidden="true">
-        <i class="pi pi-image" />
-        <span>[Hình / video minh hoạ]</span>
+        <video
+          class="hero__video"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          poster="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=70"
+        >
+          <source
+            src="https://videos.pexels.com/video-files/3141210/3141210-hd_1920_1080_25fps.mp4"
+            type="video/mp4"
+          />
+        </video>
       </div>
     </div>
   </section>
@@ -66,20 +78,17 @@ const { t } = useI18n()
 .hero__media {
   flex: 1;
   height: 360px;
-  border: 1px dashed var(--p-surface-300);
   border-radius: 8px;
+  overflow: hidden;
   background: var(--p-content-background);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  color: var(--p-text-muted-color);
-  font-size: 13px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
 }
 
-.hero__media .pi {
-  font-size: 32px;
+.hero__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 @media (max-width: 900px) {

@@ -1,5 +1,6 @@
 export interface Service {
   icon: string
+  image: string | null
   title: string
   description: string
 }

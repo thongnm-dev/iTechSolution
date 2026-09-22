@@ -87,7 +87,7 @@ onMounted(async () => {
 
     <section class="container blog-content">
       <div class="blog-content__main">
-        <p v-if="!posts.length" class="empty-state">[Chưa có bài viết nào]</p>
+        <p v-if="!posts.length" class="empty-state">Chưa có bài viết nào.</p>
         <div v-else class="posts-grid">
           <PostCard v-for="post in posts" :key="post.id" :post="post" />
         </div>
@@ -101,7 +101,7 @@ onMounted(async () => {
 
       <aside class="blog-content__sidebar">
         <div class="widget">
-          <div class="widget__title">[Danh mục]</div>
+          <div class="widget__title">Danh mục</div>
           <RouterLink v-for="category in categories" :key="category.slug" to="/blog" @click.prevent="selectCategory(category.slug)">
             {{ category.name }}
           </RouterLink>
