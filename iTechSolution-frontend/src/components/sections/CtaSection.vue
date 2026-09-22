@@ -7,7 +7,7 @@ const { t } = useI18n()
 
 <template>
   <section class="cta">
-    <div class="container cta__inner">
+    <div v-reveal class="container cta__inner">
       <h2>{{ t('home.cta.title') }}</h2>
       <p>{{ t('home.cta.subtitle') }}</p>
       <RouterLink to="/contact">

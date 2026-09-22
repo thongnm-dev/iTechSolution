@@ -17,12 +17,17 @@ onMounted(async () => {
 <template>
   <section class="section">
     <div class="container">
-      <div class="section-header section-header--row">
+      <div v-reveal class="section-header section-header--row">
         <h2 class="section-title">{{ t('home.portfolio.title') }}</h2>
         <RouterLink to="/portfolio">{{ t('home.portfolio.viewAll') }} &gt;</RouterLink>
       </div>
       <div class="portfolio-grid">
-        <div v-for="project in featuredProjects" :key="project.title" class="portfolio-card">
+        <div
+          v-for="(project, index) in featuredProjects"
+          :key="project.title"
+          v-reveal="index * 100"
+          class="portfolio-card"
+        >
           <img v-if="project.image" :src="project.image" :alt="project.title" class="portfolio-card__media portfolio-card__media--img" />
           <div v-else class="portfolio-card__media" aria-hidden="true">
             <i class="pi pi-image" />

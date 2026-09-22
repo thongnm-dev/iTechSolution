@@ -19,12 +19,12 @@ onMounted(async () => {
 <template>
   <section v-if="!loaded || posts.length" class="section">
     <div class="container">
-      <div class="section-header section-header--row">
+      <div v-reveal class="section-header section-header--row">
         <h2 class="section-title">{{ t('home.blogPreview.title') }}</h2>
         <RouterLink to="/blog">{{ t('home.blogPreview.viewAll') }} &gt;</RouterLink>
       </div>
       <div class="posts-grid">
-        <PostCard v-for="post in posts" :key="post.id" :post="post" />
+        <PostCard v-for="(post, index) in posts" :key="post.id" v-reveal="index * 100" :post="post" />
       </div>
     </div>
   </section>

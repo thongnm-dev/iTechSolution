@@ -9,9 +9,14 @@ const testimonials = [1, 2, 3]
 <template>
   <section class="section section--muted">
     <div class="container">
-      <h2 class="section-title section-title--center">{{ t('home.testimonials.title') }}</h2>
+      <h2 v-reveal class="section-title section-title--center">{{ t('home.testimonials.title') }}</h2>
       <div class="testimonials-grid">
-        <div v-for="item in testimonials" :key="item" class="testimonial-card">
+        <div
+          v-for="(item, index) in testimonials"
+          :key="item"
+          v-reveal="index * 100"
+          class="testimonial-card"
+        >
           <p>"[Trích dẫn nhận xét của khách hàng {{ item }}]"</p>
           <div class="testimonial-card__author">
             <div class="testimonial-card__avatar" aria-hidden="true" />

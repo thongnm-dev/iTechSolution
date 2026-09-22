@@ -13,15 +13,20 @@ const stats = [
 <template>
   <section class="section">
     <div class="container about">
-      <div class="about__media" aria-hidden="true">
+      <div v-reveal class="about__media" aria-hidden="true">
         <i class="pi pi-image" />
         <span>[Ảnh văn phòng / đội ngũ]</span>
       </div>
-      <div class="about__content">
+      <div v-reveal="150" class="about__content">
         <h2 class="section-title">{{ t('home.about.title') }}</h2>
         <p class="about__description">{{ t('home.about.description') }}</p>
         <div class="about__stats">
-          <div v-for="stat in stats" :key="stat.labelKey" class="about__stat">
+          <div
+            v-for="(stat, index) in stats"
+            :key="stat.labelKey"
+            v-reveal="250 + index * 100"
+            class="about__stat"
+          >
             <div class="about__stat-value">{{ stat.value }}</div>
             <div class="about__stat-label">{{ t(`home.about.stats.${stat.labelKey}`) }}</div>
           </div>

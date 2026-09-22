@@ -17,13 +17,18 @@ onMounted(async () => {
 <template>
   <section class="section section--muted">
     <div class="container">
-      <div class="section-header">
+      <div v-reveal class="section-header">
         <h2 class="section-title">{{ t('home.services.title') }}</h2>
         <p class="section-subtitle">{{ t('home.services.subtitle') }}</p>
         <RouterLink to="/services">Xem tất cả dịch vụ &gt;</RouterLink>
       </div>
       <div class="services-grid">
-        <div v-for="service in featuredServices" :key="service.title" class="service-card">
+        <div
+          v-for="(service, index) in featuredServices"
+          :key="service.title"
+          v-reveal="index * 100"
+          class="service-card"
+        >
           <i :class="['pi', service.icon]" />
           <div class="service-card__title">{{ service.title }}</div>
           <div class="service-card__desc">{{ service.description }}</div>

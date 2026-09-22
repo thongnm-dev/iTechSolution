@@ -8,7 +8,7 @@ const { t } = useI18n()
 <template>
   <section class="hero">
     <div class="container hero__inner">
-      <div class="hero__copy">
+      <div v-reveal class="hero__copy">
         <h1>{{ t('home.hero.title') }}</h1>
         <p>{{ t('home.hero.subtitle') }}</p>
         <div class="hero__actions">
@@ -20,7 +20,7 @@ const { t } = useI18n()
           </RouterLink>
         </div>
       </div>
-      <div class="hero__media" aria-hidden="true">
+      <div v-reveal="150" class="hero__media" aria-hidden="true">
         <i class="pi pi-image" />
         <span>[Hình / video minh hoạ]</span>
       </div>
