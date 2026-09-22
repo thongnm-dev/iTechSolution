@@ -194,6 +194,14 @@ onMounted(() => loadPost(props.slug))
   margin-bottom: 6px;
 }
 
+.post-body__content :deep(img) {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  margin: 24px 0;
+}
+
 .post-body__content :deep(code) {
   background: var(--p-content-hover-background);
   border-radius: 4px;
