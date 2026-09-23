@@ -18,9 +18,9 @@ services:
       APP_DEBUG: ${APP_DEBUG:-false}
       APP_URL: ${APP_URL}
       APP_KEY: ${APP_KEY}
-      DB_CONNECTION: mysql
-      DB_HOST: mysql
-      DB_PORT: 3306
+      DB_CONNECTION: ${DB_CONNECTION:-pgsql}
+      DB_HOST: ${DB_HOST:-postgres}
+      DB_PORT: ${DB_PORT:-5434}
       DB_DATABASE: ${DB_DATABASE:-laravel}
       DB_USERNAME: ${DB_USERNAME:-laravel}
       DB_PASSWORD: ${DB_PASSWORD}
@@ -31,24 +31,27 @@ services:
     volumes:
       - storage-data:/var/www/html/storage/app
     depends_on:
-      mysql:
+      postgres:
         condition: service_healthy
     networks:
       - app
 
-  mysql:
-    image: mysql:8.4
-    container_name: itechsolution-mysql
+  postgres:
+    image: postgres:18-alpine
+    container_name: itechsolution-postgres
     restart: unless-stopped
+    # Run Postgres on DB_PORT so the same port is used internally and on the host.
+    command: -p ${DB_PORT:-5434}
     environment:
-      MYSQL_DATABASE: ${DB_DATABASE:-laravel}
-      MYSQL_USER: ${DB_USERNAME:-laravel}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE:-laravel}
+      POSTGRES_USER: ${DB_USERNAME:-laravel}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "${DB_PORT:-5434}:${DB_PORT:-5434}"
     volumes:
-      - mysql-data:/var/lib/mysql
+      - postgres-data:/var/lib/postgresql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-laravel} -d ${DB_DATABASE:-laravel} -p ${DB_PORT:-5434}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -56,7 +59,7 @@ services:
       - app
 
 volumes:
-  mysql-data:
+  postgres-data:
   storage-data:
 
 networks:
