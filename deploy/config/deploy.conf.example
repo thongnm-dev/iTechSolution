@@ -1,0 +1,11 @@
+# Default parameters for build.ps1/build.sh and deploy.ps1/deploy.sh.
+# Copy this file to deploy.conf (gitignored, local-only) to use it:
+#   cp deploy.conf.example deploy.conf
+# A flag passed on the command line always overrides the value here.
+# -Release/--release and -Rebuild/--rebuild are never read from this file.
+
+IMAGE_NAME=itechsolution-app
+PLATFORM=linux/amd64
+
+# Uncomment and set your own Docker Hub username to skip -DockerUser/-u on release:
+# DOCKER_USER=

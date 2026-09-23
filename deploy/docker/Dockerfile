@@ -62,10 +62,10 @@ RUN mkdir -p storage/framework/cache storage/framework/sessions storage/framewor
     && chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
-COPY deploy/server/nginx.conf /etc/nginx/http.d/default.conf
-COPY deploy/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-COPY deploy/php/custom.ini /usr/local/etc/php/conf.d/zz-custom.ini
-COPY deploy/entrypoint.sh /entrypoint.sh
+COPY deploy/docker/server/nginx.conf /etc/nginx/http.d/default.conf
+COPY deploy/docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY deploy/docker/php/custom.ini /usr/local/etc/php/conf.d/zz-custom.ini
+COPY deploy/docker/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 EXPOSE 80
