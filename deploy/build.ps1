@@ -68,7 +68,7 @@ try {
     $GitSha = "unknown"
 }
 
-$FullTag = "${Tag}-${GitSha}"
+$FullTag = "${Tag}"
 $FullImage = "${ImageName}:${FullTag}"
 
 Write-Host "Image:      $FullImage" -ForegroundColor Cyan
