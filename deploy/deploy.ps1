@@ -81,7 +81,7 @@ try {
     $GitSha = "unknown"
 }
 
-$FullTag = "${Tag}-${GitSha}"
+$FullTag = "${Tag}"
 $LocalImage = "${ImageName}:${FullTag}"
 
 function Test-LocalImage {

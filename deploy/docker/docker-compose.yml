@@ -21,8 +21,8 @@ services:
       DB_CONNECTION: ${DB_CONNECTION:-pgsql}
       DB_HOST: ${DB_HOST:-postgres}
       DB_PORT: ${DB_PORT:-5434}
-      DB_DATABASE: ${DB_DATABASE:-laravel}
-      DB_USERNAME: ${DB_USERNAME:-laravel}
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
       SESSION_DRIVER: ${SESSION_DRIVER:-database}
       CACHE_STORE: ${CACHE_STORE:-database}
@@ -43,8 +43,8 @@ services:
     # Run Postgres on DB_PORT so the same port is used internally and on the host.
     command: -p ${DB_PORT:-5434}
     environment:
-      POSTGRES_DB: ${DB_DATABASE:-laravel}
-      POSTGRES_USER: ${DB_USERNAME:-laravel}
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
       - "${DB_PORT:-5434}:${DB_PORT:-5434}"
