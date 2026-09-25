@@ -45,14 +45,81 @@
       "button": "Liên hệ ngay"
     }
   },
+  "about": {
+    "breadcrumb": "Giới thiệu",
+    "teamAlt": "Đội ngũ iTechSolution",
+    "storyLabel": "Câu chuyện của chúng tôi",
+    "storyTitle": "Đồng hành cùng doanh nghiệp trên hành trình số hóa",
+    "visionMission": "Tầm nhìn & Sứ mệnh",
+    "vision": "Tầm nhìn",
+    "mission": "Sứ mệnh",
+    "coreValues": "Giá trị cốt lõi",
+    "coreValuesSubtitle": "Những nguyên tắc định hướng mọi hoạt động của chúng tôi",
+    "ctaTitle": "Sẵn sàng bắt đầu dự án tiếp theo?",
+    "ctaSubtitle": "Hãy để iTechSolution đồng hành cùng bạn xây dựng giải pháp công nghệ tối ưu.",
+    "ctaButton": "Liên hệ ngay"
+  },
+  "services": {
+    "breadcrumb": "Dịch vụ",
+    "heroTitle": "Dịch vụ của chúng tôi",
+    "heroSubtitle": "Chúng tôi cung cấp giải pháp công nghệ toàn diện cho doanh nghiệp — từ tư vấn, thiết kế, phát triển đến vận hành — giúp bạn tăng tốc chuyển đổi số và tối ưu chi phí.",
+    "processTitle": "Quy trình làm việc",
+    "processSubtitle": "Quy trình rõ ràng, minh bạch giúp bạn yên tâm trong suốt dự án",
+    "steps": [
+      { "title": "Tư vấn & Phân tích", "desc": "Lắng nghe yêu cầu, phân tích bài toán và đề xuất giải pháp phù hợp nhất." },
+      { "title": "Thiết kế & Lên kế hoạch", "desc": "Thiết kế UI/UX, kiến trúc hệ thống và lập kế hoạch triển khai chi tiết." },
+      { "title": "Phát triển & Kiểm thử", "desc": "Phát triển theo sprint, kiểm thử kỹ lưỡng và cập nhật tiến độ liên tục." },
+      { "title": "Bàn giao & Hỗ trợ", "desc": "Bàn giao sản phẩm, hướng dẫn sử dụng và hỗ trợ kỹ thuật dài hạn." }
+    ],
+    "ctaTitle": "Bạn cần tư vấn giải pháp phù hợp?",
+    "ctaSubtitle": "Liên hệ với chúng tôi để được tư vấn miễn phí về dịch vụ phù hợp với doanh nghiệp bạn.",
+    "ctaButton": "Liên hệ ngay"
+  },
+  "portfolio": {
+    "breadcrumb": "Dự án",
+    "heroTitle": "Dự án nổi bật",
+    "heroSubtitle": "Những dự án tiêu biểu chúng tôi đã triển khai cho khách hàng ở nhiều lĩnh vực — từ thương mại điện tử, y tế đến quản trị doanh nghiệp.",
+    "ctaTitle": "Bạn có dự án cần triển khai?",
+    "ctaSubtitle": "Hãy chia sẻ ý tưởng — chúng tôi sẽ biến nó thành sản phẩm thực tế.",
+    "ctaButton": "Bắt đầu dự án"
+  },
+  "contact": {
+    "breadcrumb": "Liên hệ",
+    "heroSubtitle": "Bạn có dự án hoặc cần tư vấn giải pháp công nghệ? Hãy để lại thông tin, đội ngũ iTechSolution sẽ liên hệ và phản hồi trong vòng 24 giờ làm việc.",
+    "formTitle": "Gửi tin nhắn cho chúng tôi",
+    "successMessage": "Cảm ơn bạn đã liên hệ, chúng tôi sẽ phản hồi sớm nhất.",
+    "errorMessage": "Đã có lỗi xảy ra, vui lòng thử lại sau.",
+    "nameLabel": "Họ và tên",
+    "namePlaceholder": "Nguyễn Văn A",
+    "emailLabel": "Email",
+    "messageLabel": "Nội dung",
+    "messagePlaceholder": "Mô tả ngắn về dự án hoặc câu hỏi của bạn...",
+    "infoTitle": "Thông tin liên hệ",
+    "followUs": "Theo dõi chúng tôi",
+    "phone": "Điện thoại",
+    "address": "Địa chỉ",
+    "workHours": "Giờ làm việc",
+    "workHoursValue": "Thứ 2 – Thứ 6, 8:30 – 17:30",
+    "addressValue": "TP. Hồ Chí Minh, Việt Nam"
+  },
   "blog": {
     "title": "Blog & Tin tức",
+    "heroSubtitle": "Cập nhật tin tức công nghệ, chia sẻ kiến thức và kinh nghiệm từ đội ngũ kỹ sư iTechSolution.",
     "searchPlaceholder": "Tìm kiếm bài viết...",
     "allCategories": "Tất cả",
     "readMore": "Đọc thêm",
     "relatedPosts": "Bài viết liên quan",
     "tags": "Thẻ",
-    "minRead": "phút đọc"
+    "minRead": "phút đọc",
+    "empty": "Chưa có bài viết nào.",
+    "coverAlt": "Ảnh đại diện bài viết",
+    "shareLabel": "Chia sẻ lên",
+    "defaultTitle": "Bài viết"
+  },
+  "notFound": {
+    "title": "Trang không tìm thấy",
+    "description": "Rất tiếc, trang bạn yêu cầu không tồn tại hoặc đã được di chuyển. Hãy quay lại trang chủ để tiếp tục.",
+    "backHome": "Về trang chủ"
   },
   "footer": {
     "company": "Công ty",
@@ -60,8 +127,14 @@
     "contact": "Liên hệ",
     "newsletter": "Đăng ký nhận tin",
     "newsletterPlaceholder": "Email của bạn",
+    "newsletterDesc": "Nhận tin tức công nghệ mới nhất từ chúng tôi.",
     "subscribe": "Gửi",
-    "rights": "Đã đăng ký bản quyền."
+    "rights": "Đã đăng ký bản quyền.",
+    "brandDesc": "Đồng hành cùng doanh nghiệp trong hành trình chuyển đổi số — từ phát triển web, ứng dụng di động đến giải pháp backend và triển khai cloud.",
+    "webDev": "Phát triển Web",
+    "mobileDev": "Ứng dụng di động",
+    "backendApi": "Giải pháp Backend & API",
+    "devops": "Triển khai & DevOps"
   },
   "common": {
     "comingSoon": "Nội dung đang được xây dựng."

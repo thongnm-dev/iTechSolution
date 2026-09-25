@@ -1,10 +1,20 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useSeo } from '@/composables/useSeo'
 import { getServices } from '@/services/content.service'
 import type { Service } from '@/types/content'
 
-useSeo({ title: 'Dịch vụ', description: 'Các dịch vụ phát triển web, ứng dụng di động, backend API và DevOps tại iTechSolution.' })
+const { t } = useI18n()
+
+useSeo({ title: t('nav.services'), description: t('services.heroSubtitle') })
+
+const processSteps = [
+  { icon: 'pi-comments' },
+  { icon: 'pi-pencil' },
+  { icon: 'pi-code' },
+  { icon: 'pi-check-circle' },
+]
 
 const services = ref<Service[]>([])
 
@@ -20,12 +30,9 @@ onMounted(async () => {
       <div class="svc-hero__blob svc-hero__blob--1" aria-hidden="true" />
       <div class="svc-hero__blob svc-hero__blob--2" aria-hidden="true" />
       <div class="container svc-hero__inner">
-        <span v-reveal class="breadcrumb">Trang chủ / <strong>Dịch vụ</strong></span>
-        <h1 v-reveal="60">Dịch vụ của chúng tôi</h1>
-        <p v-reveal="120" class="svc-hero__subtitle">
-          Chúng tôi cung cấp giải pháp công nghệ toàn diện cho doanh nghiệp — từ tư vấn,
-          thiết kế, phát triển đến vận hành — giúp bạn tăng tốc chuyển đổi số và tối ưu chi phí.
-        </p>
+        <span v-reveal class="breadcrumb">{{ t('nav.home') }} / <strong>{{ t('services.breadcrumb') }}</strong></span>
+        <h1 v-reveal="60">{{ t('services.heroTitle') }}</h1>
+        <p v-reveal="120" class="svc-hero__subtitle">{{ t('services.heroSubtitle') }}</p>
       </div>
     </section>
 
@@ -63,23 +70,16 @@ onMounted(async () => {
     <!-- Process -->
     <section class="section section--muted">
       <div class="container">
-        <h2 v-reveal class="section-title section-title--center">Quy trình làm việc</h2>
-        <p v-reveal="60" class="section-subtitle section-subtitle--center">
-          Quy trình rõ ràng, minh bạch giúp bạn yên tâm trong suốt dự án
-        </p>
+        <h2 v-reveal class="section-title section-title--center">{{ t('services.processTitle') }}</h2>
+        <p v-reveal="60" class="section-subtitle section-subtitle--center">{{ t('services.processSubtitle') }}</p>
         <div class="process-grid">
-          <div v-for="(step, i) in [
-            { icon: 'pi-comments', title: 'Tư vấn & Phân tích', desc: 'Lắng nghe yêu cầu, phân tích bài toán và đề xuất giải pháp phù hợp nhất.' },
-            { icon: 'pi-pencil', title: 'Thiết kế & Lên kế hoạch', desc: 'Thiết kế UI/UX, kiến trúc hệ thống và lập kế hoạch triển khai chi tiết.' },
-            { icon: 'pi-code', title: 'Phát triển & Kiểm thử', desc: 'Phát triển theo sprint, kiểm thử kỹ lưỡng và cập nhật tiến độ liên tục.' },
-            { icon: 'pi-check-circle', title: 'Bàn giao & Hỗ trợ', desc: 'Bàn giao sản phẩm, hướng dẫn sử dụng và hỗ trợ kỹ thuật dài hạn.' },
-          ]" :key="step.title" v-reveal="i * 120" class="process-step">
+          <div v-for="(step, i) in processSteps" :key="i" v-reveal="i * 120" class="process-step">
             <div class="process-step__number">{{ String(i + 1).padStart(2, '0') }}</div>
             <div class="process-step__icon-wrap">
               <i :class="['pi', step.icon]" />
             </div>
-            <div class="process-step__title">{{ step.title }}</div>
-            <p class="process-step__desc">{{ step.desc }}</p>
+            <div class="process-step__title">{{ t(`services.steps[${i}].title`) }}</div>
+            <p class="process-step__desc">{{ t(`services.steps[${i}].desc`) }}</p>
             <div v-if="i < 3" class="process-step__connector" aria-hidden="true" />
           </div>
         </div>
@@ -90,10 +90,10 @@ onMounted(async () => {
     <section class="svc-cta">
       <div class="svc-cta__blob" aria-hidden="true" />
       <div v-reveal class="container svc-cta__inner">
-        <h2>Bạn cần tư vấn giải pháp phù hợp?</h2>
-        <p>Liên hệ với chúng tôi để được tư vấn miễn phí về dịch vụ phù hợp với doanh nghiệp bạn.</p>
+        <h2>{{ t('services.ctaTitle') }}</h2>
+        <p>{{ t('services.ctaSubtitle') }}</p>
         <RouterLink to="/contact" class="svc-cta__btn">
-          Liên hệ ngay &rarr;
+          {{ t('services.ctaButton') }} &rarr;
         </RouterLink>
       </div>
     </section>

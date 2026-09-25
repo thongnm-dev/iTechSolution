@@ -1,8 +1,11 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import Button from 'primevue/button'
 import { useSeo } from '@/composables/useSeo'
 
-useSeo({ title: '404 — Không tìm thấy', description: 'Trang bạn yêu cầu không tồn tại.' })
+const { t } = useI18n()
+
+useSeo({ title: t('notFound.title'), description: t('notFound.description') })
 </script>
 
 <template>
@@ -11,13 +14,10 @@ useSeo({ title: '404 — Không tìm thấy', description: 'Trang bạn yêu c�
     <div class="not-found__blob not-found__blob--2" aria-hidden="true" />
     <div class="container not-found__inner">
       <span class="not-found__code">404</span>
-      <h1 class="not-found__title">Trang không tìm thấy</h1>
-      <p class="not-found__desc">
-        Rất tiếc, trang bạn yêu cầu không tồn tại hoặc đã được di chuyển.
-        Hãy quay lại trang chủ để tiếp tục.
-      </p>
+      <h1 class="not-found__title">{{ t('notFound.title') }}</h1>
+      <p class="not-found__desc">{{ t('notFound.description') }}</p>
       <RouterLink to="/">
-        <Button label="Về trang chủ" icon="pi pi-arrow-left" raised />
+        <Button :label="t('notFound.backHome')" icon="pi pi-arrow-left" raised />
       </RouterLink>
     </div>
   </section>

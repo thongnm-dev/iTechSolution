@@ -45,14 +45,81 @@
       "button": "Contact us"
     }
   },
+  "about": {
+    "breadcrumb": "About",
+    "teamAlt": "iTechSolution Team",
+    "storyLabel": "Our story",
+    "storyTitle": "Partnering with businesses on the digital journey",
+    "visionMission": "Vision & Mission",
+    "vision": "Vision",
+    "mission": "Mission",
+    "coreValues": "Core Values",
+    "coreValuesSubtitle": "The principles that guide everything we do",
+    "ctaTitle": "Ready to start your next project?",
+    "ctaSubtitle": "Let iTechSolution help you build the optimal technology solution.",
+    "ctaButton": "Contact us"
+  },
+  "services": {
+    "breadcrumb": "Services",
+    "heroTitle": "Our Services",
+    "heroSubtitle": "We provide comprehensive technology solutions for businesses — from consulting, design, development to operations — helping you accelerate digital transformation and optimize costs.",
+    "processTitle": "Our Process",
+    "processSubtitle": "A clear, transparent workflow so you can stay confident throughout the project",
+    "steps": [
+      { "title": "Consult & Analyze", "desc": "Listen to requirements, analyze the problem and propose the best-fit solution." },
+      { "title": "Design & Plan", "desc": "Design UI/UX, system architecture and create a detailed implementation plan." },
+      { "title": "Develop & Test", "desc": "Develop in sprints, thoroughly test and continuously update progress." },
+      { "title": "Deliver & Support", "desc": "Deliver the product, provide user guides and long-term technical support." }
+    ],
+    "ctaTitle": "Need help finding the right solution?",
+    "ctaSubtitle": "Contact us for a free consultation on the best service for your business.",
+    "ctaButton": "Contact us"
+  },
+  "portfolio": {
+    "breadcrumb": "Portfolio",
+    "heroTitle": "Featured Projects",
+    "heroSubtitle": "Notable projects we've delivered for clients across various industries — from e-commerce and healthcare to enterprise management.",
+    "ctaTitle": "Have a project to build?",
+    "ctaSubtitle": "Share your idea — we'll turn it into a real product.",
+    "ctaButton": "Start a project"
+  },
+  "contact": {
+    "breadcrumb": "Contact",
+    "heroSubtitle": "Have a project or need technology consulting? Leave your information and the iTechSolution team will respond within 24 business hours.",
+    "formTitle": "Send us a message",
+    "successMessage": "Thank you for contacting us. We will respond as soon as possible.",
+    "errorMessage": "An error occurred. Please try again later.",
+    "nameLabel": "Full name",
+    "namePlaceholder": "John Doe",
+    "emailLabel": "Email",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Briefly describe your project or question...",
+    "infoTitle": "Contact Information",
+    "followUs": "Follow us",
+    "phone": "Phone",
+    "address": "Address",
+    "workHours": "Working hours",
+    "workHoursValue": "Mon – Fri, 8:30 – 17:30",
+    "addressValue": "Ho Chi Minh City, Vietnam"
+  },
   "blog": {
     "title": "Blog & News",
+    "heroSubtitle": "Stay up to date with the latest tech news, knowledge and experiences from the iTechSolution engineering team.",
     "searchPlaceholder": "Search articles...",
     "allCategories": "All",
     "readMore": "Read more",
     "relatedPosts": "Related posts",
     "tags": "Tags",
-    "minRead": "min read"
+    "minRead": "min read",
+    "empty": "No articles yet.",
+    "coverAlt": "Article cover image",
+    "shareLabel": "Share on",
+    "defaultTitle": "Article"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "Sorry, the page you requested does not exist or has been moved. Please return to the homepage to continue.",
+    "backHome": "Back to home"
   },
   "footer": {
     "company": "Company",
@@ -60,8 +127,14 @@
     "contact": "Contact",
     "newsletter": "Newsletter",
     "newsletterPlaceholder": "Your email",
+    "newsletterDesc": "Get the latest tech news from us.",
     "subscribe": "Subscribe",
-    "rights": "All rights reserved."
+    "rights": "All rights reserved.",
+    "brandDesc": "Partnering with businesses on their digital transformation journey — from web development, mobile apps to backend solutions and cloud deployment.",
+    "webDev": "Web Development",
+    "mobileDev": "Mobile Apps",
+    "backendApi": "Backend & API Solutions",
+    "devops": "Deployment & DevOps"
   },
   "common": {
     "comingSoon": "This page is under construction."

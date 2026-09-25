@@ -12,10 +12,7 @@ const year = new Date().getFullYear()
     <div class="container app-footer__grid">
       <div class="app-footer__col app-footer__brand">
         <div class="app-footer__logo">iTechSolution</div>
-        <p>
-          Đồng hành cùng doanh nghiệp trong hành trình chuyển đổi số — từ
-          phát triển web, ứng dụng di động đến giải pháp backend và triển khai cloud.
-        </p>
+        <p>{{ t('footer.brandDesc') }}</p>
         <div class="app-footer__social">
           <a href="#" aria-label="Facebook"><i class="pi pi-facebook" /></a>
           <a href="#" aria-label="LinkedIn"><i class="pi pi-linkedin" /></a>
@@ -33,15 +30,15 @@ const year = new Date().getFullYear()
 
       <div class="app-footer__col">
         <div class="app-footer__heading">{{ t('footer.services') }}</div>
-        <RouterLink to="/services">Phát triển Web</RouterLink>
-        <RouterLink to="/services">Ứng dụng di động</RouterLink>
-        <RouterLink to="/services">Giải pháp Backend &amp; API</RouterLink>
-        <RouterLink to="/services">Triển khai &amp; DevOps</RouterLink>
+        <RouterLink to="/services">{{ t('footer.webDev') }}</RouterLink>
+        <RouterLink to="/services">{{ t('footer.mobileDev') }}</RouterLink>
+        <RouterLink to="/services">{{ t('footer.backendApi') }}</RouterLink>
+        <RouterLink to="/services">{{ t('footer.devops') }}</RouterLink>
       </div>
 
       <div class="app-footer__col">
         <div class="app-footer__heading">{{ t('footer.newsletter') }}</div>
-        <p class="app-footer__newsletter-desc">Nhận tin tức công nghệ mới nhất từ chúng tôi.</p>
+        <p class="app-footer__newsletter-desc">{{ t('footer.newsletterDesc') }}</p>
         <form class="app-footer__newsletter" @submit.prevent>
           <label for="footer-email" class="sr-only">{{ t('footer.newsletterPlaceholder') }}</label>
           <InputText id="footer-email" type="email" :placeholder="t('footer.newsletterPlaceholder')" size="small" />

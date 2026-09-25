@@ -45,14 +45,81 @@
       "button": "お問い合わせ"
     }
   },
+  "about": {
+    "breadcrumb": "会社概要",
+    "teamAlt": "iTechSolutionチーム",
+    "storyLabel": "私たちのストーリー",
+    "storyTitle": "デジタルの旅で企業と共に歩む",
+    "visionMission": "ビジョン & ミッション",
+    "vision": "ビジョン",
+    "mission": "ミッション",
+    "coreValues": "コアバリュー",
+    "coreValuesSubtitle": "すべての活動を導く原則",
+    "ctaTitle": "次のプロジェクトを始める準備はできましたか？",
+    "ctaSubtitle": "iTechSolutionが最適なテクノロジーソリューションの構築をサポートします。",
+    "ctaButton": "お問い合わせ"
+  },
+  "services": {
+    "breadcrumb": "サービス",
+    "heroTitle": "サービス内容",
+    "heroSubtitle": "コンサルティング、設計、開発から運用まで — 企業向けの包括的なテクノロジーソリューションを提供し、デジタル変革の加速とコスト最適化を支援します。",
+    "processTitle": "ワークフロー",
+    "processSubtitle": "明確で透明なプロセスで、プロジェクト全体を通じて安心をお届けします",
+    "steps": [
+      { "title": "相談 & 分析", "desc": "要件をヒアリングし、課題を分析して最適なソリューションを提案します。" },
+      { "title": "設計 & 計画", "desc": "UI/UX設計、システムアーキテクチャの構築、詳細な実装計画を策定します。" },
+      { "title": "開発 & テスト", "desc": "スプリント開発、徹底したテスト、継続的な進捗報告を行います。" },
+      { "title": "納品 & サポート", "desc": "製品の納品、利用ガイドの提供、長期的な技術サポートを行います。" }
+    ],
+    "ctaTitle": "最適なソリューションをお探しですか？",
+    "ctaSubtitle": "お客様のビジネスに最適なサービスについて、無料でご相談いただけます。",
+    "ctaButton": "お問い合わせ"
+  },
+  "portfolio": {
+    "breadcrumb": "実績",
+    "heroTitle": "主な実績",
+    "heroSubtitle": "Eコマース、医療、企業管理など、さまざまな分野のクライアントに提供した代表的なプロジェクト。",
+    "ctaTitle": "構築したいプロジェクトはありますか？",
+    "ctaSubtitle": "アイデアを共有してください — 実際の製品にいたします。",
+    "ctaButton": "プロジェクトを始める"
+  },
+  "contact": {
+    "breadcrumb": "お問い合わせ",
+    "heroSubtitle": "プロジェクトがある、またはテクノロジーコンサルティングが必要ですか？情報を残していただければ、iTechSolutionチームが24営業時間以内にご連絡いたします。",
+    "formTitle": "メッセージを送る",
+    "successMessage": "お問い合わせいただきありがとうございます。できるだけ早くご返信いたします。",
+    "errorMessage": "エラーが発生しました。後でもう一度お試しください。",
+    "nameLabel": "お名前",
+    "namePlaceholder": "山田太郎",
+    "emailLabel": "メール",
+    "messageLabel": "メッセージ",
+    "messagePlaceholder": "プロジェクトまたはご質問の概要を入力してください...",
+    "infoTitle": "連絡先情報",
+    "followUs": "フォローする",
+    "phone": "電話",
+    "address": "住所",
+    "workHours": "営業時間",
+    "workHoursValue": "月〜金 8:30〜17:30",
+    "addressValue": "ホーチミン市、ベトナム"
+  },
   "blog": {
     "title": "ブログ・ニュース",
+    "heroSubtitle": "iTechSolutionエンジニアチームからの最新テックニュース、知識、経験を共有します。",
     "searchPlaceholder": "記事を検索...",
     "allCategories": "すべて",
     "readMore": "続きを読む",
     "relatedPosts": "関連記事",
     "tags": "タグ",
-    "minRead": "分で読めます"
+    "minRead": "分で読めます",
+    "empty": "記事がまだありません。",
+    "coverAlt": "記事のカバー画像",
+    "shareLabel": "シェア",
+    "defaultTitle": "記事"
+  },
+  "notFound": {
+    "title": "ページが見つかりません",
+    "description": "申し訳ございません。リクエストされたページは存在しないか、移動されました。ホームページに戻って続行してください。",
+    "backHome": "ホームに戻る"
   },
   "footer": {
     "company": "会社情報",
@@ -60,8 +127,14 @@
     "contact": "お問い合わせ",
     "newsletter": "ニュースレター登録",
     "newsletterPlaceholder": "メールアドレス",
+    "newsletterDesc": "最新のテックニュースをお届けします。",
     "subscribe": "登録",
-    "rights": "All rights reserved."
+    "rights": "All rights reserved.",
+    "brandDesc": "Web開発、モバイルアプリ、バックエンドソリューション、クラウドデプロイメントまで — 企業のデジタル変革をサポートします。",
+    "webDev": "Web開発",
+    "mobileDev": "モバイルアプリ",
+    "backendApi": "バックエンド & APIソリューション",
+    "devops": "デプロイメント & DevOps"
   },
   "common": {
     "comingSoon": "このページは準備中です。"

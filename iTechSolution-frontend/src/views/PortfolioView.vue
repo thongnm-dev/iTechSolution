@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useSeo } from '@/composables/useSeo'
 import { getProjects } from '@/services/content.service'
 import type { Project } from '@/types/content'
 
-useSeo({ title: 'Dự án', description: 'Những dự án tiêu biểu iTechSolution đã triển khai cho khách hàng ở nhiều lĩnh vực.' })
+const { t } = useI18n()
+
+useSeo({ title: t('nav.portfolio'), description: t('portfolio.heroSubtitle') })
 
 const projects = ref<Project[]>([])
 
@@ -20,12 +23,9 @@ onMounted(async () => {
       <div class="port-hero__blob port-hero__blob--1" aria-hidden="true" />
       <div class="port-hero__blob port-hero__blob--2" aria-hidden="true" />
       <div class="container port-hero__inner">
-        <span v-reveal class="breadcrumb">Trang chủ / <strong>Dự án</strong></span>
-        <h1 v-reveal="60">Dự án nổi bật</h1>
-        <p v-reveal="120" class="port-hero__subtitle">
-          Những dự án tiêu biểu chúng tôi đã triển khai cho khách hàng ở nhiều lĩnh vực —
-          từ thương mại điện tử, y tế đến quản trị doanh nghiệp.
-        </p>
+        <span v-reveal class="breadcrumb">{{ t('nav.home') }} / <strong>{{ t('portfolio.breadcrumb') }}</strong></span>
+        <h1 v-reveal="60">{{ t('portfolio.heroTitle') }}</h1>
+        <p v-reveal="120" class="port-hero__subtitle">{{ t('portfolio.heroSubtitle') }}</p>
       </div>
     </section>
 
@@ -67,10 +67,10 @@ onMounted(async () => {
     <section class="port-cta">
       <div class="port-cta__blob" aria-hidden="true" />
       <div v-reveal class="container port-cta__inner">
-        <h2>Bạn có dự án cần triển khai?</h2>
-        <p>Hãy chia sẻ ý tưởng — chúng tôi sẽ biến nó thành sản phẩm thực tế.</p>
+        <h2>{{ t('portfolio.ctaTitle') }}</h2>
+        <p>{{ t('portfolio.ctaSubtitle') }}</p>
         <RouterLink to="/contact" class="port-cta__btn">
-          Bắt đầu dự án &rarr;
+          {{ t('portfolio.ctaButton') }} &rarr;
         </RouterLink>
       </div>
     </section>

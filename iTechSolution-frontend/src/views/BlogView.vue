@@ -63,10 +63,7 @@ onMounted(async () => {
       <div class="container blog-hero__inner">
         <span v-reveal class="breadcrumb">{{ t('nav.home') }} / <strong>{{ t('nav.blog') }}</strong></span>
         <h1 v-reveal="60">{{ t('blog.title') }}</h1>
-        <p v-reveal="120" class="blog-hero__subtitle">
-          Cập nhật tin tức công nghệ, chia sẻ kiến thức và kinh nghiệm
-          từ đội ngũ kỹ sư iTechSolution.
-        </p>
+        <p v-reveal="120" class="blog-hero__subtitle">{{ t('blog.heroSubtitle') }}</p>
       </div>
     </section>
 
@@ -116,7 +113,7 @@ onMounted(async () => {
 
         <!-- Posts -->
         <template v-else>
-          <p v-if="!posts.length" class="empty-state">Chưa có bài viết nào.</p>
+          <p v-if="!posts.length" class="empty-state">{{ t('blog.empty') }}</p>
           <div v-else class="posts-grid">
             <PostCard v-for="(post, index) in posts" :key="post.id" v-reveal="index * 80" :post="post" />
           </div>

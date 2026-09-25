@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useSeo } from '@/composables/useSeo'
 import { getAboutContent } from '@/services/content.service'
 import type { AboutContent } from '@/types/content'
 import StatCounter from '@/components/sections/StatCounter.vue'
 
-useSeo({ title: 'Giới thiệu', description: 'Tìm hiểu về iTechSolution — đội ngũ, tầm nhìn và giá trị cốt lõi.' })
+const { t } = useI18n()
+
+useSeo({ title: t('nav.about'), description: t('about.ctaSubtitle') })
 
 const content = ref<AboutContent | null>(null)
 
@@ -27,7 +30,7 @@ onMounted(async () => {
       <div class="about-hero__blob about-hero__blob--1" aria-hidden="true" />
       <div class="about-hero__blob about-hero__blob--2" aria-hidden="true" />
       <div class="container about-hero__inner">
-        <span v-reveal class="breadcrumb">Trang chủ / <strong>Giới thiệu</strong></span>
+        <span v-reveal class="breadcrumb">{{ t('nav.home') }} / <strong>{{ t('about.breadcrumb') }}</strong></span>
         <h1 v-reveal="60">{{ content.heroTitle }}</h1>
         <p v-if="content.heroSubtitle" v-reveal="120" class="about-hero__subtitle">{{ content.heroSubtitle }}</p>
       </div>
@@ -57,7 +60,7 @@ onMounted(async () => {
           <img
             v-if="content.storyImage"
             :src="content.storyImage"
-            alt="Đội ngũ iTechSolution"
+            :alt="t('about.teamAlt')"
             class="story__img"
             loading="lazy"
           />
@@ -66,8 +69,8 @@ onMounted(async () => {
           </div>
         </div>
         <div v-reveal="150" class="story__content">
-          <div class="story__label">Câu chuyện của chúng tôi</div>
-          <h2 class="section-title">Đồng hành cùng doanh nghiệp trên hành trình số hóa</h2>
+          <div class="story__label">{{ t('about.storyLabel') }}</div>
+          <h2 class="section-title">{{ t('about.storyTitle') }}</h2>
           <p v-for="(paragraph, index) in content.storyParagraphs" :key="index">{{ paragraph }}</p>
         </div>
       </div>
@@ -76,20 +79,20 @@ onMounted(async () => {
     <!-- Vision & Mission -->
     <section class="section section--muted">
       <div class="container">
-        <h2 v-reveal class="section-title section-title--center">Tầm nhìn & Sứ mệnh</h2>
+        <h2 v-reveal class="section-title section-title--center">{{ t('about.visionMission') }}</h2>
         <div class="vm-grid">
           <div v-reveal class="vm-card">
             <div class="vm-card__icon-wrap">
               <i class="pi pi-eye" />
             </div>
-            <h3>Tầm nhìn</h3>
+            <h3>{{ t('about.vision') }}</h3>
             <p>{{ content.vision }}</p>
           </div>
           <div v-reveal="120" class="vm-card">
             <div class="vm-card__icon-wrap">
               <i class="pi pi-flag" />
             </div>
-            <h3>Sứ mệnh</h3>
+            <h3>{{ t('about.mission') }}</h3>
             <p>{{ content.mission }}</p>
           </div>
         </div>
@@ -99,8 +102,8 @@ onMounted(async () => {
     <!-- Core Values -->
     <section class="section">
       <div class="container">
-        <h2 v-reveal class="section-title section-title--center">Giá trị cốt lõi</h2>
-        <p v-reveal="60" class="section-subtitle section-subtitle--center">Những nguyên tắc định hướng mọi hoạt động của chúng tôi</p>
+        <h2 v-reveal class="section-title section-title--center">{{ t('about.coreValues') }}</h2>
+        <p v-reveal="60" class="section-subtitle section-subtitle--center">{{ t('about.coreValuesSubtitle') }}</p>
         <div class="values-grid">
           <div v-for="(value, index) in content.values" :key="value.title" v-reveal="index * 100" class="value-card">
             <div class="value-card__icon-wrap">
@@ -117,10 +120,10 @@ onMounted(async () => {
     <section class="about-cta">
       <div class="about-cta__blob about-cta__blob--1" aria-hidden="true" />
       <div v-reveal class="container about-cta__inner">
-        <h2>Sẵn sàng bắt đầu dự án tiếp theo?</h2>
-        <p>Hãy để iTechSolution đồng hành cùng bạn xây dựng giải pháp công nghệ tối ưu.</p>
+        <h2>{{ t('about.ctaTitle') }}</h2>
+        <p>{{ t('about.ctaSubtitle') }}</p>
         <RouterLink to="/contact" class="about-cta__btn">
-          Liên hệ ngay &rarr;
+          {{ t('about.ctaButton') }} &rarr;
         </RouterLink>
       </div>
     </section>

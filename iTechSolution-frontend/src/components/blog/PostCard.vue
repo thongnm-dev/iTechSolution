@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import type { Post } from '@/types/blog'
+
+const { t } = useI18n()
 
 defineProps<{ post: Post }>()
 </script>
@@ -16,7 +19,7 @@ defineProps<{ post: Post }>()
       <span class="post-card__meta">{{ post.category.name }} · {{ new Date(post.publishedAt).toLocaleDateString() }}</span>
       <div class="post-card__title">{{ post.title }}</div>
       <p class="post-card__excerpt">{{ post.excerpt }}</p>
-      <span class="post-card__read-more">Đọc thêm &rarr;</span>
+      <span class="post-card__read-more">{{ t('blog.readMore') }} &rarr;</span>
     </div>
   </RouterLink>
 </template>

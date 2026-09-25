@@ -15,7 +15,7 @@ const { t } = useI18n()
 const post = ref<Post | null>(null)
 const relatedPosts = ref<Post[]>([])
 
-const postTitle = computed(() => post.value?.title ?? 'Bài viết')
+const postTitle = computed(() => post.value?.title ?? t('blog.defaultTitle'))
 useSeo({
   title: postTitle,
   description: computed(() => post.value?.excerpt ?? ''),
@@ -65,7 +65,7 @@ onMounted(() => loadPost(props.slug))
               :href="link.href"
               target="_blank"
               rel="noopener noreferrer"
-              :aria-label="`Chia sẻ lên ${link.label}`"
+              :aria-label="`${t('blog.shareLabel')} ${link.label}`"
               class="share-btn"
             >
               <i :class="['pi', link.icon]" />
@@ -78,7 +78,7 @@ onMounted(() => loadPost(props.slug))
     <img v-if="post.coverImage" :src="post.coverImage" :alt="post.title" class="container cover cover--img" />
     <section v-else class="container cover" aria-hidden="true">
       <i class="pi pi-image" />
-      <span>Ảnh đại diện bài viết</span>
+      <span>{{ t('blog.coverAlt') }}</span>
     </section>
 
     <section class="container post-body">

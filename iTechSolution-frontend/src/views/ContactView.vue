@@ -10,7 +10,7 @@ import { submitContact } from '@/services/contact.service'
 
 const { t } = useI18n()
 
-useSeo({ title: 'Liên hệ', description: 'Liên hệ iTechSolution để tư vấn giải pháp công nghệ cho doanh nghiệp của bạn.' })
+useSeo({ title: t('nav.contact'), description: t('contact.heroSubtitle') })
 
 const form = reactive({
   name: '',
@@ -32,17 +32,17 @@ async function handleSubmit() {
     form.email = ''
     form.message = ''
   } catch {
-    errorMessage.value = 'Đã có lỗi xảy ra, vui lòng thử lại sau.'
+    errorMessage.value = t('contact.errorMessage')
   } finally {
     submitting.value = false
   }
 }
 
 const contactInfo = [
-  { icon: 'pi-envelope', label: 'Email', value: 'contact@itechsolution.vn' },
-  { icon: 'pi-phone', label: 'Điện thoại', value: '(028) 1234 5678' },
-  { icon: 'pi-map-marker', label: 'Địa chỉ', value: 'TP. Hồ Chí Minh, Việt Nam' },
-  { icon: 'pi-clock', label: 'Giờ làm việc', value: 'Thứ 2 – Thứ 6, 8:30 – 17:30' },
+  { icon: 'pi-envelope', labelKey: 'contact.emailLabel', value: 'contact@itechsolution.vn' },
+  { icon: 'pi-phone', labelKey: 'contact.phone', value: '(028) 1234 5678' },
+  { icon: 'pi-map-marker', labelKey: 'contact.address', valueKey: 'contact.addressValue' },
+  { icon: 'pi-clock', labelKey: 'contact.workHours', valueKey: 'contact.workHoursValue' },
 ]
 </script>
 
@@ -53,12 +53,9 @@ const contactInfo = [
       <div class="contact-hero__blob contact-hero__blob--1" aria-hidden="true" />
       <div class="contact-hero__blob contact-hero__blob--2" aria-hidden="true" />
       <div class="container contact-hero__inner">
-        <span v-reveal class="breadcrumb">Trang chủ / <strong>Liên hệ</strong></span>
+        <span v-reveal class="breadcrumb">{{ t('nav.home') }} / <strong>{{ t('contact.breadcrumb') }}</strong></span>
         <h1 v-reveal="60">{{ t('nav.contact') }}</h1>
-        <p v-reveal="120" class="contact-hero__subtitle">
-          Bạn có dự án hoặc cần tư vấn giải pháp công nghệ? Hãy để lại thông tin, đội ngũ
-          iTechSolution sẽ liên hệ và phản hồi trong vòng 24 giờ làm việc.
-        </p>
+        <p v-reveal="120" class="contact-hero__subtitle">{{ t('contact.heroSubtitle') }}</p>
       </div>
     </section>
 
@@ -67,10 +64,10 @@ const contactInfo = [
       <div class="container contact-layout">
         <!-- Form -->
         <div v-reveal class="contact-form-wrap">
-          <h2 class="contact-form__title">Gửi tin nhắn cho chúng tôi</h2>
+          <h2 class="contact-form__title">{{ t('contact.formTitle') }}</h2>
 
           <Message v-if="submitted" severity="success" :closable="false" class="contact__message">
-            Cảm ơn bạn đã liên hệ, chúng tôi sẽ phản hồi sớm nhất.
+            {{ t('contact.successMessage') }}
           </Message>
           <Message v-if="errorMessage" severity="error" :closable="false" class="contact__message">
             {{ errorMessage }}
@@ -79,17 +76,17 @@ const contactInfo = [
           <form class="contact__form" @submit.prevent="handleSubmit">
             <div class="field-row">
               <div class="field">
-                <label for="contact-name">Họ và tên</label>
-                <InputText id="contact-name" v-model="form.name" placeholder="Nguyễn Văn A" required />
+                <label for="contact-name">{{ t('contact.nameLabel') }}</label>
+                <InputText id="contact-name" v-model="form.name" :placeholder="t('contact.namePlaceholder')" required />
               </div>
               <div class="field">
-                <label for="contact-email">Email</label>
+                <label for="contact-email">{{ t('contact.emailLabel') }}</label>
                 <InputText id="contact-email" v-model="form.email" type="email" placeholder="email@example.com" required />
               </div>
             </div>
             <div class="field">
-              <label for="contact-message">Nội dung</label>
-              <Textarea id="contact-message" v-model="form.message" rows="6" placeholder="Mô tả ngắn về dự án hoặc câu hỏi của bạn..." required />
+              <label for="contact-message">{{ t('contact.messageLabel') }}</label>
+              <Textarea id="contact-message" v-model="form.message" rows="6" :placeholder="t('contact.messagePlaceholder')" required />
             </div>
             <Button type="submit" :label="t('home.cta.button')" :loading="submitting" raised />
           </form>
@@ -97,21 +94,21 @@ const contactInfo = [
 
         <!-- Info Sidebar -->
         <div v-reveal="150" class="contact-info">
-          <h3 class="contact-info__title">Thông tin liên hệ</h3>
+          <h3 class="contact-info__title">{{ t('contact.infoTitle') }}</h3>
           <div class="contact-info__list">
-            <div v-for="item in contactInfo" :key="item.label" class="contact-info__item">
+            <div v-for="item in contactInfo" :key="item.labelKey" class="contact-info__item">
               <div class="contact-info__icon-wrap">
                 <i :class="['pi', item.icon]" />
               </div>
               <div>
-                <div class="contact-info__label">{{ item.label }}</div>
-                <div class="contact-info__value">{{ item.value }}</div>
+                <div class="contact-info__label">{{ t(item.labelKey) }}</div>
+                <div class="contact-info__value">{{ item.valueKey ? t(item.valueKey) : item.value }}</div>
               </div>
             </div>
           </div>
 
           <div class="contact-info__social">
-            <div class="contact-info__social-label">Theo dõi chúng tôi</div>
+            <div class="contact-info__social-label">{{ t('contact.followUs') }}</div>
             <div class="contact-info__social-links">
               <a href="#" aria-label="Facebook"><i class="pi pi-facebook" /></a>
               <a href="#" aria-label="LinkedIn"><i class="pi pi-linkedin" /></a>
