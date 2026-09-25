@@ -49,6 +49,19 @@ onMounted(() => loadPost(props.slug))
           <span class="post-header__date">{{ new Date(post.publishedAt).toLocaleDateString() }}</span>
           <span class="post-header__separator">·</span>
           <span class="post-header__date">{{ post.minutesToRead }} {{ t('blog.minRead') }}</span>
+          <div class="post-header__share">
+            <a
+              v-for="link in shareLinks"
+              :key="link.label"
+              :href="link.href"
+              target="_blank"
+              rel="noopener noreferrer"
+              :aria-label="`Chia sẻ lên ${link.label}`"
+              class="share-btn"
+            >
+              <i :class="['pi', link.icon]" />
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -57,23 +70,6 @@ onMounted(() => loadPost(props.slug))
     <section v-else class="container cover" aria-hidden="true">
       <i class="pi pi-image" />
       <span>Ảnh đại diện bài viết</span>
-    </section>
-
-    <section class="container post-share-bar">
-      <span class="post-share-bar__label">Chia sẻ bài viết</span>
-      <div class="post-share-bar__links">
-        <a
-          v-for="link in shareLinks"
-          :key="link.label"
-          :href="link.href"
-          target="_blank"
-          rel="noopener noreferrer"
-          :aria-label="`Chia sẻ lên ${link.label}`"
-          class="share-btn"
-        >
-          <i :class="['pi', link.icon]" />
-        </a>
-      </div>
     </section>
 
     <section class="container post-body">
@@ -181,22 +177,8 @@ onMounted(() => loadPost(props.slug))
   font-size: 32px;
 }
 
-.post-share-bar {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding-bottom: 24px;
-  margin-bottom: 8px;
-  border-bottom: 1px solid var(--p-content-border-color);
-}
-
-.post-share-bar__label {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--p-text-muted-color);
-}
-
-.post-share-bar__links {
+.post-header__share {
+  margin-left: auto;
   display: flex;
   gap: 8px;
 }
@@ -206,7 +188,6 @@ onMounted(() => loadPost(props.slug))
 }
 
 .post-body__content {
-  max-width: 800px;
   line-height: 1.8;
   color: var(--p-text-color);
 }
@@ -334,6 +315,16 @@ onMounted(() => loadPost(props.slug))
 @media (max-width: 900px) {
   .related-grid {
     grid-template-columns: 1fr;
+  }
+
+  .post-header__author {
+    flex-wrap: wrap;
+  }
+
+  .post-header__share {
+    margin-left: 0;
+    margin-top: 8px;
+    width: 100%;
   }
 }
 </style>
