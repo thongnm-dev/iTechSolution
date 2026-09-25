@@ -78,6 +78,12 @@ onMounted(async () => {
   border-radius: 20px;
   overflow: hidden;
   cursor: pointer;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.portfolio-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 48px rgba(30, 27, 75, 0.25);
 }
 
 .portfolio-card__media {
@@ -112,17 +118,16 @@ onMounted(async () => {
 .portfolio-card__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(30, 27, 75, 0.85) 0%, transparent 60%);
+  background: linear-gradient(to top, rgba(30, 27, 75, 0.75) 0%, transparent 55%);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   padding: 24px;
-  opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: background 0.4s ease;
 }
 
 .portfolio-card:hover .portfolio-card__overlay {
-  opacity: 1;
+  background: linear-gradient(to top, rgba(30, 27, 75, 0.92) 0%, rgba(30, 27, 75, 0.25) 70%);
 }
 
 .portfolio-card__category {
@@ -132,12 +137,19 @@ onMounted(async () => {
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: 6px;
+  transition: transform 0.4s ease;
 }
 
 .portfolio-card__name {
   font-weight: 700;
   font-size: 18px;
   color: #fff;
+  transition: transform 0.4s ease;
+}
+
+.portfolio-card:hover .portfolio-card__category,
+.portfolio-card:hover .portfolio-card__name {
+  transform: translateY(-4px);
 }
 
 @media (max-width: 900px) {
