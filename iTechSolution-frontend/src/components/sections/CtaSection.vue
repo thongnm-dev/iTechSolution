@@ -6,7 +6,7 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <section class="cta">
+  <section id="cta" class="cta">
     <div class="cta__blob cta__blob--1" aria-hidden="true" />
     <div class="cta__blob cta__blob--2" aria-hidden="true" />
     <div v-reveal class="container cta__inner">

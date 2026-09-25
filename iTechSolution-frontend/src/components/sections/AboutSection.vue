@@ -12,7 +12,7 @@ const stats = [
 </script>
 
 <template>
-  <section class="section section--about">
+  <section id="about" class="section section--about">
     <div class="container about">
       <div v-reveal class="about__media-wrap">
         <div class="about__accent" aria-hidden="true" />

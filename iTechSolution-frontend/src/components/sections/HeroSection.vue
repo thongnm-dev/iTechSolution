@@ -6,7 +6,7 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <section class="hero">
+  <section id="hero" class="hero">
     <video
       class="hero__bg-video"
       autoplay

@@ -15,7 +15,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <section class="section section--services">
+  <section id="services" class="section section--services">
     <div class="container">
       <div v-reveal class="section-header">
         <h2 class="section-title">{{ t('home.services.title') }}</h2>

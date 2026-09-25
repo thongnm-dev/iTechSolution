@@ -50,7 +50,7 @@ const responsiveOptions = [
 </script>
 
 <template>
-  <section class="section section--testimonials">
+  <section id="testimonials" class="section section--testimonials">
     <div class="container">
       <div v-reveal class="section-header">
         <h2 class="section-title section-title--center">{{ t('home.testimonials.title') }}</h2>

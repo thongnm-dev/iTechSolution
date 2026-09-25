@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import Skeleton from 'primevue/skeleton'
 import { useSeo } from '@/composables/useSeo'
 import { getServices } from '@/services/content.service'
 import type { Service } from '@/types/content'
@@ -17,9 +18,11 @@ const processSteps = [
 ]
 
 const services = ref<Service[]>([])
+const loading = ref(true)
 
 onMounted(async () => {
   services.value = await getServices()
+  loading.value = false
 })
 </script>
 
@@ -39,7 +42,17 @@ onMounted(async () => {
     <!-- Services Grid -->
     <section class="section">
       <div class="container">
-        <div class="services-grid">
+        <div v-if="loading" class="services-grid">
+          <div v-for="i in 4" :key="i" class="skeleton-card">
+            <Skeleton height="220px" border-radius="20px 20px 0 0" />
+            <div class="skeleton-card__body">
+              <Skeleton width="60%" height="18px" />
+              <Skeleton width="100%" height="14px" />
+              <Skeleton width="80%" height="14px" />
+            </div>
+          </div>
+        </div>
+        <div v-else class="services-grid">
           <div
             v-for="(service, index) in services"
             :key="service.title"
@@ -418,6 +431,21 @@ onMounted(async () => {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   color: var(--p-primary-800);
   text-decoration: none;
+}
+
+/* ── Skeleton ───────────────────────────── */
+.skeleton-card {
+  border-radius: 20px;
+  border: 1px solid var(--p-content-border-color);
+  background: var(--p-content-background);
+  overflow: hidden;
+}
+
+.skeleton-card__body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 /* ── Responsive ──────────────────────────── */

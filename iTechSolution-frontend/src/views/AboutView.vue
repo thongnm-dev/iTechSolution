@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import Skeleton from 'primevue/skeleton'
 import { useSeo } from '@/composables/useSeo'
 import { getAboutContent } from '@/services/content.service'
 import type { AboutContent } from '@/types/content'
@@ -11,6 +12,7 @@ const { t } = useI18n()
 useSeo({ title: t('nav.about'), description: t('about.ctaSubtitle') })
 
 const content = ref<AboutContent | null>(null)
+const loading = ref(true)
 
 function parseStatNumber(value: string): { target: number; suffix: string } {
   const match = value.match(/^(\d+)(.*)$/)
@@ -20,101 +22,157 @@ function parseStatNumber(value: string): { target: number; suffix: string } {
 
 onMounted(async () => {
   content.value = await getAboutContent()
+  loading.value = false
 })
 </script>
 
 <template>
-  <div v-if="content">
+  <div>
     <!-- Hero -->
     <section class="about-hero">
       <div class="about-hero__blob about-hero__blob--1" aria-hidden="true" />
       <div class="about-hero__blob about-hero__blob--2" aria-hidden="true" />
       <div class="container about-hero__inner">
         <span v-reveal class="breadcrumb">{{ t('nav.home') }} / <strong>{{ t('about.breadcrumb') }}</strong></span>
-        <h1 v-reveal="60">{{ content.heroTitle }}</h1>
-        <p v-if="content.heroSubtitle" v-reveal="120" class="about-hero__subtitle">{{ content.heroSubtitle }}</p>
+        <h1 v-reveal="60">{{ content?.heroTitle }}</h1>
+        <p v-if="content?.heroSubtitle" v-reveal="120" class="about-hero__subtitle">{{ content.heroSubtitle }}</p>
       </div>
     </section>
 
-    <!-- Stats Trust Bar -->
-    <section class="stats-bar">
-      <div class="container stats-bar__grid">
-        <StatCounter
-          v-for="stat in content.stats"
-          :key="stat.label"
-          v-reveal="100"
-          :target="parseStatNumber(stat.value).target"
-          :suffix="parseStatNumber(stat.value).suffix"
-          icon=""
-          :label="stat.label"
-          class="stats-bar__item"
-        />
-      </div>
-    </section>
+    <!-- Loading Skeleton -->
+    <template v-if="loading">
+      <section class="stats-bar">
+        <div class="container stats-bar__grid">
+          <div v-for="i in 3" :key="i" class="stats-bar__item">
+            <Skeleton width="60px" height="36px" class="skeleton-center" />
+            <Skeleton width="80%" height="14px" class="skeleton-center" />
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <div class="container story">
+          <div class="story__media-wrap">
+            <Skeleton height="360px" border-radius="20px" />
+          </div>
+          <div class="story__content">
+            <Skeleton width="120px" height="14px" />
+            <Skeleton width="80%" height="28px" />
+            <Skeleton width="100%" height="14px" />
+            <Skeleton width="100%" height="14px" />
+            <Skeleton width="60%" height="14px" />
+          </div>
+        </div>
+      </section>
+      <section class="section section--muted">
+        <div class="container">
+          <Skeleton width="200px" height="28px" class="skeleton-center" />
+          <div class="vm-grid">
+            <div v-for="i in 2" :key="i" class="vm-card">
+              <Skeleton width="52px" height="52px" border-radius="14px" />
+              <Skeleton width="60%" height="20px" />
+              <Skeleton width="100%" height="14px" />
+              <Skeleton width="80%" height="14px" />
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <div class="container">
+          <Skeleton width="180px" height="28px" class="skeleton-center" />
+          <Skeleton width="300px" height="14px" class="skeleton-center" />
+          <div class="values-grid" style="margin-top: 48px">
+            <div v-for="i in 3" :key="i" class="value-card" style="border-color: var(--p-content-border-color)">
+              <Skeleton width="60px" height="60px" border-radius="16px" class="skeleton-center" />
+              <Skeleton width="60%" height="17px" class="skeleton-center" />
+              <Skeleton width="90%" height="14px" class="skeleton-center" />
+            </div>
+          </div>
+        </div>
+      </section>
+    </template>
 
-    <!-- Story -->
-    <section class="section">
-      <div class="container story">
-        <div v-reveal class="story__media-wrap">
-          <div class="story__accent" aria-hidden="true" />
-          <img
-            v-if="content.storyImage"
-            :src="content.storyImage"
-            :alt="t('about.teamAlt')"
-            class="story__img"
-            loading="lazy"
+    <!-- Content -->
+    <template v-else-if="content">
+      <!-- Stats Trust Bar -->
+      <section class="stats-bar">
+        <div class="container stats-bar__grid">
+          <StatCounter
+            v-for="stat in content.stats"
+            :key="stat.label"
+            v-reveal="100"
+            :target="parseStatNumber(stat.value).target"
+            :suffix="parseStatNumber(stat.value).suffix"
+            icon=""
+            :label="stat.label"
+            class="stats-bar__item"
           />
-          <div v-else class="story__placeholder" aria-hidden="true">
-            <i class="pi pi-image" />
-          </div>
         </div>
-        <div v-reveal="150" class="story__content">
-          <div class="story__label">{{ t('about.storyLabel') }}</div>
-          <h2 class="section-title">{{ t('about.storyTitle') }}</h2>
-          <p v-for="(paragraph, index) in content.storyParagraphs" :key="index">{{ paragraph }}</p>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Vision & Mission -->
-    <section class="section section--muted">
-      <div class="container">
-        <h2 v-reveal class="section-title section-title--center">{{ t('about.visionMission') }}</h2>
-        <div class="vm-grid">
-          <div v-reveal class="vm-card">
-            <div class="vm-card__icon-wrap">
-              <i class="pi pi-eye" />
+      <!-- Story -->
+      <section class="section">
+        <div class="container story">
+          <div v-reveal class="story__media-wrap">
+            <div class="story__accent" aria-hidden="true" />
+            <img
+              v-if="content.storyImage"
+              :src="content.storyImage"
+              :alt="t('about.teamAlt')"
+              class="story__img"
+              loading="lazy"
+            />
+            <div v-else class="story__placeholder" aria-hidden="true">
+              <i class="pi pi-image" />
             </div>
-            <h3>{{ t('about.vision') }}</h3>
-            <p>{{ content.vision }}</p>
           </div>
-          <div v-reveal="120" class="vm-card">
-            <div class="vm-card__icon-wrap">
-              <i class="pi pi-flag" />
-            </div>
-            <h3>{{ t('about.mission') }}</h3>
-            <p>{{ content.mission }}</p>
+          <div v-reveal="150" class="story__content">
+            <div class="story__label">{{ t('about.storyLabel') }}</div>
+            <h2 class="section-title">{{ t('about.storyTitle') }}</h2>
+            <p v-for="(paragraph, index) in content.storyParagraphs" :key="index">{{ paragraph }}</p>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Core Values -->
-    <section class="section">
-      <div class="container">
-        <h2 v-reveal class="section-title section-title--center">{{ t('about.coreValues') }}</h2>
-        <p v-reveal="60" class="section-subtitle section-subtitle--center">{{ t('about.coreValuesSubtitle') }}</p>
-        <div class="values-grid">
-          <div v-for="(value, index) in content.values" :key="value.title" v-reveal="index * 100" class="value-card">
-            <div class="value-card__icon-wrap">
-              <i :class="['pi', value.icon]" />
+      <!-- Vision & Mission -->
+      <section class="section section--muted">
+        <div class="container">
+          <h2 v-reveal class="section-title section-title--center">{{ t('about.visionMission') }}</h2>
+          <div class="vm-grid">
+            <div v-reveal class="vm-card">
+              <div class="vm-card__icon-wrap">
+                <i class="pi pi-eye" />
+              </div>
+              <h3>{{ t('about.vision') }}</h3>
+              <p>{{ content.vision }}</p>
             </div>
-            <div class="value-card__title">{{ value.title }}</div>
-            <p class="value-card__desc">{{ value.description }}</p>
+            <div v-reveal="120" class="vm-card">
+              <div class="vm-card__icon-wrap">
+                <i class="pi pi-flag" />
+              </div>
+              <h3>{{ t('about.mission') }}</h3>
+              <p>{{ content.mission }}</p>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <!-- Core Values -->
+      <section class="section">
+        <div class="container">
+          <h2 v-reveal class="section-title section-title--center">{{ t('about.coreValues') }}</h2>
+          <p v-reveal="60" class="section-subtitle section-subtitle--center">{{ t('about.coreValuesSubtitle') }}</p>
+          <div class="values-grid">
+            <div v-for="(value, index) in content.values" :key="value.title" v-reveal="index * 100" class="value-card">
+              <div class="value-card__icon-wrap">
+                <i :class="['pi', value.icon]" />
+              </div>
+              <div class="value-card__title">{{ value.title }}</div>
+              <p class="value-card__desc">{{ value.description }}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </template>
 
     <!-- CTA -->
     <section class="about-cta">
@@ -502,6 +560,11 @@ onMounted(async () => {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   color: var(--p-primary-800);
   text-decoration: none;
+}
+
+/* ── Skeleton ───────────────────────────── */
+.skeleton-center {
+  margin: 0 auto 8px;
 }
 
 /* ── Responsive ──────────────────────────── */

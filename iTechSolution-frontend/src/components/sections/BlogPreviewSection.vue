@@ -17,7 +17,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <section v-if="!loaded || posts.length" class="section">
+  <section v-if="!loaded || posts.length" id="blog" class="section">
     <div class="container">
       <div v-reveal class="section-header section-header--row">
         <h2 class="section-title">{{ t('home.blogPreview.title') }}</h2>

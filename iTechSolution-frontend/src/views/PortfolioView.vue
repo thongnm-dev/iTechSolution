@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import Skeleton from 'primevue/skeleton'
 import { useSeo } from '@/composables/useSeo'
 import { getProjects } from '@/services/content.service'
 import type { Project } from '@/types/content'
@@ -10,9 +11,11 @@ const { t } = useI18n()
 useSeo({ title: t('nav.portfolio'), description: t('portfolio.heroSubtitle') })
 
 const projects = ref<Project[]>([])
+const loading = ref(true)
 
 onMounted(async () => {
   projects.value = await getProjects()
+  loading.value = false
 })
 </script>
 
@@ -32,7 +35,17 @@ onMounted(async () => {
     <!-- Filter + Grid -->
     <section class="section">
       <div class="container">
-        <div class="portfolio-grid">
+        <div v-if="loading" class="portfolio-grid">
+          <div v-for="i in 4" :key="i" class="skeleton-card">
+            <Skeleton height="240px" border-radius="20px 20px 0 0" />
+            <div class="skeleton-card__body">
+              <Skeleton width="50%" height="18px" />
+              <Skeleton width="100%" height="14px" />
+              <Skeleton width="70%" height="14px" />
+            </div>
+          </div>
+        </div>
+        <div v-else class="portfolio-grid">
           <div
             v-for="(project, index) in projects"
             :key="project.title"
@@ -316,6 +329,21 @@ onMounted(async () => {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   color: var(--p-primary-800);
   text-decoration: none;
+}
+
+/* ── Skeleton ───────────────────────────── */
+.skeleton-card {
+  border-radius: 20px;
+  border: 1px solid var(--p-content-border-color);
+  background: var(--p-content-background);
+  overflow: hidden;
+}
+
+.skeleton-card__body {
+  padding: 24px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 /* ── Responsive ──────────────────────────── */
