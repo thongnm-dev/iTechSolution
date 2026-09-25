@@ -14,6 +14,15 @@ useSeo({ title: t('nav.about'), description: t('about.ctaSubtitle') })
 const content = ref<AboutContent | null>(null)
 const loading = ref(true)
 
+const valueImages = [
+  'https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=600&q=70',
+  'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&q=70',
+  'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=600&q=70',
+  'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=70',
+  'https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=600&q=70',
+  'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600&q=70',
+]
+
 function parseStatNumber(value: string): { target: number; suffix: string } {
   const match = value.match(/^(\d+)(.*)$/)
   if (!match) return { target: 0, suffix: value }
@@ -139,18 +148,32 @@ onMounted(async () => {
           <h2 v-reveal class="section-title section-title--center">{{ t('about.visionMission') }}</h2>
           <div class="vm-grid">
             <div v-reveal class="vm-card">
-              <div class="vm-card__icon-wrap">
-                <i class="pi pi-eye" />
+              <div class="vm-card__media">
+                <img
+                  src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=70"
+                  alt="Vision"
+                  class="vm-card__img"
+                  loading="lazy"
+                />
               </div>
-              <h3>{{ t('about.vision') }}</h3>
-              <p>{{ content.vision }}</p>
+              <div class="vm-card__body">
+                <h3>{{ t('about.vision') }}</h3>
+                <p>{{ content.vision }}</p>
+              </div>
             </div>
             <div v-reveal="120" class="vm-card">
-              <div class="vm-card__icon-wrap">
-                <i class="pi pi-flag" />
+              <div class="vm-card__media">
+                <img
+                  src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=70"
+                  alt="Mission"
+                  class="vm-card__img"
+                  loading="lazy"
+                />
               </div>
-              <h3>{{ t('about.mission') }}</h3>
-              <p>{{ content.mission }}</p>
+              <div class="vm-card__body">
+                <h3>{{ t('about.mission') }}</h3>
+                <p>{{ content.mission }}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -163,11 +186,18 @@ onMounted(async () => {
           <p v-reveal="60" class="section-subtitle section-subtitle--center">{{ t('about.coreValuesSubtitle') }}</p>
           <div class="values-grid">
             <div v-for="(value, index) in content.values" :key="value.title" v-reveal="index * 100" class="value-card">
-              <div class="value-card__icon-wrap">
-                <i :class="['pi', value.icon]" />
+              <div class="value-card__media">
+                <img
+                  :src="valueImages[index % valueImages.length]"
+                  :alt="value.title"
+                  class="value-card__img"
+                  loading="lazy"
+                />
               </div>
-              <div class="value-card__title">{{ value.title }}</div>
-              <p class="value-card__desc">{{ value.description }}</p>
+              <div class="value-card__body">
+                <div class="value-card__title">{{ value.title }}</div>
+                <p class="value-card__desc">{{ value.description }}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -384,10 +414,8 @@ onMounted(async () => {
 .vm-card {
   background: var(--p-content-background);
   border-radius: 20px;
-  padding: 36px 32px;
+  overflow: hidden;
   border: 1px solid var(--p-content-border-color);
-  border-top: 3px solid transparent;
-  border-image: linear-gradient(90deg, var(--p-primary-500), var(--accent-400)) 1;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -396,29 +424,34 @@ onMounted(async () => {
   box-shadow: 0 12px 32px rgba(79, 70, 229, 0.1);
 }
 
-.vm-card__icon-wrap {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
-  background: linear-gradient(135deg, var(--p-primary-500), var(--p-primary-700));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
+.vm-card__media {
+  height: 200px;
+  overflow: hidden;
 }
 
-.vm-card__icon-wrap .pi {
-  font-size: 22px;
-  color: #fff;
+.vm-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
 }
 
-.vm-card h3 {
+.vm-card:hover .vm-card__img {
+  transform: scale(1.06);
+}
+
+.vm-card__body {
+  padding: 28px 28px 32px;
+}
+
+.vm-card__body h3 {
   margin: 0 0 10px;
   font-size: 20px;
   font-weight: 700;
 }
 
-.vm-card p {
+.vm-card__body p {
   margin: 0;
   color: var(--p-text-muted-color);
   line-height: 1.7;
@@ -433,11 +466,10 @@ onMounted(async () => {
 }
 
 .value-card {
-  text-align: center;
-  padding: 32px 24px;
   border-radius: 20px;
   border: 1px solid var(--p-content-border-color);
   background: var(--p-content-background);
+  overflow: hidden;
   transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
   position: relative;
 }
@@ -455,6 +487,7 @@ onMounted(async () => {
   opacity: 0;
   transition: opacity 0.35s ease;
   pointer-events: none;
+  z-index: 1;
 }
 
 .value-card:hover {
@@ -468,20 +501,26 @@ onMounted(async () => {
   animation: border-rotate 3s linear infinite;
 }
 
-.value-card__icon-wrap {
-  width: 60px;
-  height: 60px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, var(--p-primary-500), var(--p-primary-700));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 20px;
+.value-card__media {
+  height: 160px;
+  overflow: hidden;
 }
 
-.value-card__icon-wrap .pi {
-  font-size: 24px;
-  color: #fff;
+.value-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.value-card:hover .value-card__img {
+  transform: scale(1.06);
+}
+
+.value-card__body {
+  padding: 20px 24px 24px;
+  text-align: center;
 }
 
 .value-card__title {

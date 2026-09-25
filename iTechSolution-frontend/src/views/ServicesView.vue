@@ -11,10 +11,10 @@ const { t } = useI18n()
 useSeo({ title: t('nav.services'), description: t('services.heroSubtitle') })
 
 const processSteps = [
-  { icon: 'pi-comments' },
-  { icon: 'pi-pencil' },
-  { icon: 'pi-code' },
-  { icon: 'pi-check-circle' },
+  { icon: 'pi-comments', color: '#6366f1', bg: 'rgba(99,102,241,0.12)' },
+  { icon: 'pi-pencil', color: '#f59e0b', bg: 'rgba(245,158,11,0.12)' },
+  { icon: 'pi-code', color: '#10b981', bg: 'rgba(16,185,129,0.12)' },
+  { icon: 'pi-check-circle', color: '#f43f5e', bg: 'rgba(244,63,94,0.12)' },
 ]
 
 const services = ref<Service[]>([])
@@ -85,15 +85,51 @@ onMounted(async () => {
       <div class="container">
         <h2 v-reveal class="section-title section-title--center">{{ t('services.processTitle') }}</h2>
         <p v-reveal="60" class="section-subtitle section-subtitle--center">{{ t('services.processSubtitle') }}</p>
-        <div class="process-grid">
-          <div v-for="(step, i) in processSteps" :key="i" v-reveal="i * 120" class="process-step">
-            <div class="process-step__number">{{ String(i + 1).padStart(2, '0') }}</div>
-            <div class="process-step__icon-wrap">
-              <i :class="['pi', step.icon]" />
+
+        <div class="process-wave">
+          <svg class="process-wave__svg" viewBox="0 0 1200 320" preserveAspectRatio="none" fill="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="wave-grad" x1="0" y1="0" x2="1200" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#818cf8" />
+                <stop offset="100%" stop-color="#fbbf24" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M 150,230 C 275,230 325,90 450,90 C 575,90 625,230 750,230 C 875,230 925,90 1050,90"
+              stroke="url(#wave-grad)"
+              stroke-width="3"
+              stroke-dasharray="14 10"
+              stroke-linecap="round"
+            />
+          </svg>
+
+          <div class="process-wave__steps">
+            <div
+              v-for="(step, i) in processSteps"
+              :key="i"
+              v-reveal="i * 150"
+              class="process-wave__step"
+              :class="i % 2 === 0 ? 'process-wave__step--low' : 'process-wave__step--high'"
+              :style="{ '--step-color': step.color, '--step-bg': step.bg }"
+            >
+              <div v-if="i % 2 === 1" class="process-wave__info">
+                <span class="process-wave__word">Step</span>
+                <span class="process-wave__num">{{ String(i + 1).padStart(2, '0') }}</span>
+                <div class="process-wave__title">{{ t(`services.steps[${i}].title`) }}</div>
+              </div>
+
+              <div class="process-wave__pin">
+                <div class="process-wave__pin-inner">
+                  <i :class="['pi', step.icon]" />
+                </div>
+              </div>
+
+              <div v-if="i % 2 === 0" class="process-wave__info">
+                <span class="process-wave__num">{{ String(i + 1).padStart(2, '0') }}</span>
+                <span class="process-wave__word">Step</span>
+                <div class="process-wave__title">{{ t(`services.steps[${i}].title`) }}</div>
+              </div>
             </div>
-            <div class="process-step__title">{{ t(`services.steps[${i}].title`) }}</div>
-            <p class="process-step__desc">{{ t(`services.steps[${i}].desc`) }}</p>
-            <div v-if="i < 3" class="process-step__connector" aria-hidden="true" />
           </div>
         </div>
       </div>
@@ -285,7 +321,7 @@ onMounted(async () => {
   margin: 0;
 }
 
-/* ── Process ─────────────────────────────── */
+/* ── Process Wave ────────────────────────── */
 .section--muted {
   background: var(--p-content-hover-background);
 }
@@ -303,69 +339,118 @@ onMounted(async () => {
   line-height: 1.7;
 }
 
-.process-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 24px;
-}
-
-.process-step {
-  text-align: center;
+.process-wave {
   position: relative;
-  padding: 0 8px;
+  height: 320px;
 }
 
-.process-step__number {
-  font-size: 13px;
-  font-weight: 800;
-  color: var(--p-primary-400);
-  letter-spacing: 1px;
-  margin-bottom: 16px;
-  opacity: 0.6;
+.process-wave__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
-.process-step__icon-wrap {
-  width: 64px;
-  height: 64px;
-  border-radius: 18px;
-  background: linear-gradient(135deg, var(--p-primary-500), var(--p-primary-700));
+.process-wave__steps {
+  position: relative;
+  display: flex;
+  height: 100%;
+  z-index: 1;
+}
+
+.process-wave__step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.process-wave__step--low {
+  justify-content: flex-end;
+  padding-bottom: 12px;
+}
+
+.process-wave__step--high {
+  justify-content: flex-start;
+  padding-top: 12px;
+}
+
+.process-wave__pin {
+  position: relative;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  border: 4px solid var(--step-color);
+  background: var(--p-content-background);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 20px;
-  transition: transform 0.3s ease;
+  flex-shrink: 0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.process-step:hover .process-step__icon-wrap {
-  transform: scale(1.1);
+.process-wave__step:hover .process-wave__pin {
+  transform: scale(1.08);
+  box-shadow: 0 8px 28px var(--step-bg);
 }
 
-.process-step__icon-wrap .pi {
-  font-size: 24px;
+.process-wave__pin::after {
+  content: '';
+  position: absolute;
+  bottom: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 11px solid transparent;
+  border-right: 11px solid transparent;
+  border-top: 16px solid var(--step-color);
+}
+
+.process-wave__pin-inner {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--step-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.process-wave__pin-inner .pi {
+  font-size: 22px;
   color: #fff;
 }
 
-.process-step__title {
+.process-wave__info {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.process-wave__word {
+  font-size: 11px;
   font-weight: 700;
-  font-size: 15px;
-  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--p-primary-400);
+  line-height: 1;
 }
 
-.process-step__desc {
-  font-size: 13px;
-  color: var(--p-text-muted-color);
-  line-height: 1.6;
-  margin: 0;
+.process-wave__num {
+  font-size: 34px;
+  font-weight: 800;
+  color: var(--step-color);
+  line-height: 1.1;
 }
 
-.process-step__connector {
-  position: absolute;
-  top: 62px;
-  right: -16px;
-  width: 32px;
-  height: 2px;
-  background: linear-gradient(90deg, var(--p-primary-400), var(--accent-400));
-  opacity: 0.4;
+.process-wave__title {
+  font-weight: 700;
+  font-size: 14px;
+  max-width: 150px;
+  line-height: 1.45;
+  margin-top: 4px;
 }
 
 /* ── CTA ─────────────────────────────────── */
@@ -464,19 +549,34 @@ onMounted(async () => {
     min-height: auto;
   }
 
-  .process-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 32px;
+  .process-wave {
+    height: auto;
   }
 
-  .process-step__connector {
+  .process-wave__svg {
     display: none;
   }
-}
 
-@media (max-width: 500px) {
-  .process-grid {
-    grid-template-columns: 1fr;
+  .process-wave__steps {
+    flex-direction: column;
+    align-items: center;
+    gap: 36px;
+    height: auto;
+  }
+
+  .process-wave__step {
+    max-width: 280px;
+    width: 100%;
+  }
+
+  .process-wave__step--low,
+  .process-wave__step--high {
+    justify-content: center;
+    padding: 0;
+  }
+
+  .process-wave__step--high {
+    flex-direction: column-reverse;
   }
 }
 </style>
