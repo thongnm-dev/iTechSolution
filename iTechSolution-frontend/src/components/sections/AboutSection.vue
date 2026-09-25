@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import StatCounter from './StatCounter.vue'
 
 const { t } = useI18n()
 
 const stats = [
-  { value: '10+', labelKey: 'years', icon: 'pi-calendar' },
-  { value: '50+', labelKey: 'projects', icon: 'pi-briefcase' },
-  { value: '30+', labelKey: 'clients', icon: 'pi-users' },
+  { target: 10, suffix: '+', labelKey: 'years', icon: 'pi-calendar' },
+  { target: 50, suffix: '+', labelKey: 'projects', icon: 'pi-briefcase' },
+  { target: 30, suffix: '+', labelKey: 'clients', icon: 'pi-users' },
 ] as const
 </script>
 
@@ -26,16 +27,15 @@ const stats = [
         <h2 class="section-title">{{ t('home.about.title') }}</h2>
         <p class="about__description">{{ t('home.about.description') }}</p>
         <div class="about__stats">
-          <div
+          <StatCounter
             v-for="(stat, index) in stats"
             :key="stat.labelKey"
             v-reveal="250 + index * 100"
-            class="about__stat"
-          >
-            <i :class="['pi', stat.icon, 'about__stat-icon']" />
-            <div class="about__stat-value">{{ stat.value }}</div>
-            <div class="about__stat-label">{{ t(`home.about.stats.${stat.labelKey}`) }}</div>
-          </div>
+            :target="stat.target"
+            :suffix="stat.suffix"
+            :icon="stat.icon"
+            :label="t(`home.about.stats.${stat.labelKey}`)"
+          />
         </div>
       </div>
     </div>
@@ -93,44 +93,6 @@ const stats = [
 .about__stats {
   display: flex;
   gap: 16px;
-}
-
-.about__stat {
-  flex: 1;
-  border: 1px solid var(--p-content-border-color);
-  border-radius: 16px;
-  padding: 20px 16px;
-  text-align: center;
-  background: var(--p-content-background);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.about__stat:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(79, 70, 229, 0.1);
-}
-
-.about__stat-icon {
-  font-size: 20px;
-  color: var(--p-primary-500);
-  margin-bottom: 8px;
-  display: block;
-}
-
-.about__stat-value {
-  font-size: 28px;
-  font-weight: 800;
-  background: linear-gradient(135deg, var(--p-primary-600), var(--accent-500));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.about__stat-label {
-  font-size: 12px;
-  color: var(--p-text-muted-color);
-  margin-top: 4px;
-  font-weight: 500;
 }
 
 @media (max-width: 900px) {
