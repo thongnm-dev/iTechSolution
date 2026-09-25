@@ -7,34 +7,35 @@ const { t } = useI18n()
 
 <template>
   <section class="hero">
+    <video
+      class="hero__bg-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      poster="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=70"
+    >
+      <source
+        src="https://videos.pexels.com/video-files/3141210/3141210-hd_1920_1080_25fps.mp4"
+        type="video/mp4"
+      />
+    </video>
+    <div class="hero__overlay" />
+    <div class="hero__blob hero__blob--1" aria-hidden="true" />
+    <div class="hero__blob hero__blob--2" aria-hidden="true" />
+
     <div class="container hero__inner">
-      <div v-reveal class="hero__copy">
-        <h1>{{ t('home.hero.title') }}</h1>
-        <p>{{ t('home.hero.subtitle') }}</p>
-        <div class="hero__actions">
-          <RouterLink to="/contact">
-            <Button :label="t('home.hero.ctaPrimary')" size="large" />
-          </RouterLink>
-          <RouterLink to="/services">
-            <Button :label="t('home.hero.ctaSecondary')" size="large" severity="secondary" outlined />
-          </RouterLink>
-        </div>
-      </div>
-      <div v-reveal="150" class="hero__media" aria-hidden="true">
-        <video
-          class="hero__video"
-          autoplay
-          muted
-          loop
-          playsinline
-          preload="metadata"
-          poster="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=70"
-        >
-          <source
-            src="https://videos.pexels.com/video-files/3141210/3141210-hd_1920_1080_25fps.mp4"
-            type="video/mp4"
-          />
-        </video>
+      <div v-reveal class="hero__badge">UI/UX & Software Engineering</div>
+      <h1 v-reveal="80" class="hero__title">{{ t('home.hero.title') }}</h1>
+      <p v-reveal="160" class="hero__subtitle">{{ t('home.hero.subtitle') }}</p>
+      <div v-reveal="240" class="hero__actions">
+        <RouterLink to="/contact">
+          <Button :label="t('home.hero.ctaPrimary')" size="large" raised />
+        </RouterLink>
+        <RouterLink to="/services">
+          <Button :label="t('home.hero.ctaSecondary')" size="large" severity="secondary" outlined class="hero__btn-outline" />
+        </RouterLink>
       </div>
     </div>
   </section>
@@ -42,58 +43,140 @@ const { t } = useI18n()
 
 <style scoped>
 .hero {
-  background: var(--p-content-hover-background);
-  padding: 80px 0;
+  position: relative;
+  min-height: calc(100vh - var(--header-height));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero__bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(30, 27, 75, 0.92) 0%,
+    rgba(79, 70, 229, 0.78) 50%,
+    rgba(99, 102, 241, 0.7) 100%
+  );
+}
+
+.dark .hero__overlay {
+  background: linear-gradient(
+    160deg,
+    rgba(3, 7, 18, 0.94) 0%,
+    rgba(30, 27, 75, 0.88) 50%,
+    rgba(49, 46, 129, 0.82) 100%
+  );
+}
+
+.hero__blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.hero__blob--1 {
+  width: 500px;
+  height: 500px;
+  background: var(--accent-400);
+  top: -120px;
+  right: -80px;
+  animation: float-blob 18s ease-in-out infinite;
+}
+
+.hero__blob--2 {
+  width: 400px;
+  height: 400px;
+  background: var(--p-primary-400);
+  bottom: -100px;
+  left: -60px;
+  animation: float-blob 22s ease-in-out infinite reverse;
+}
+
+@keyframes float-blob {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -20px) scale(1.05); }
+  66% { transform: translate(-20px, 15px) scale(0.95); }
 }
 
 .hero__inner {
-  display: flex;
-  align-items: center;
-  gap: 64px;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 80px 24px;
+  max-width: 800px;
 }
 
-.hero__copy {
-  flex: 1;
+.hero__badge {
+  display: inline-block;
+  padding: 6px 20px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--accent-400);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  background: rgba(251, 191, 36, 0.08);
+  margin-bottom: 24px;
 }
 
-.hero__copy h1 {
-  font-size: 42px;
-  line-height: 1.25;
-  margin: 0 0 16px;
+.hero__title {
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 800;
+  line-height: 1.15;
+  margin: 0 0 20px;
+  color: #fff;
+  background: linear-gradient(135deg, #fff 30%, var(--accent-400) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.hero__copy p {
-  font-size: 16px;
-  color: var(--p-text-muted-color);
-  line-height: 1.6;
-  max-width: 460px;
-  margin: 0 0 28px;
+.hero__subtitle {
+  font-size: clamp(16px, 2vw, 19px);
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.7;
+  max-width: 560px;
+  margin: 0 auto 36px;
 }
 
 .hero__actions {
   display: flex;
   gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.hero__media {
-  flex: 1;
-  height: 360px;
-  border-radius: 8px;
-  overflow: hidden;
-  background: var(--p-content-background);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+.hero__btn-outline :deep(.p-button) {
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
 }
 
-.hero__video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+.hero__btn-outline :deep(.p-button:hover) {
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.1);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 600px) {
   .hero__inner {
+    padding: 60px 16px;
+  }
+
+  .hero__actions {
     flex-direction: column;
+    align-items: center;
   }
 }
 </style>

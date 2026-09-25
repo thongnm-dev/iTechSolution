@@ -19,21 +19,31 @@ onMounted(async () => {
     <div class="container">
       <div v-reveal class="section-header section-header--row">
         <h2 class="section-title">{{ t('home.portfolio.title') }}</h2>
-        <RouterLink to="/portfolio">{{ t('home.portfolio.viewAll') }} &gt;</RouterLink>
+        <RouterLink to="/portfolio" class="section-link">{{ t('home.portfolio.viewAll') }} &rarr;</RouterLink>
       </div>
       <div class="portfolio-grid">
         <div
           v-for="(project, index) in featuredProjects"
           :key="project.title"
-          v-reveal="index * 100"
+          v-reveal="index * 120"
           class="portfolio-card"
         >
-          <img v-if="project.image" :src="project.image" :alt="project.title" class="portfolio-card__media portfolio-card__media--img" />
-          <div v-else class="portfolio-card__media" aria-hidden="true">
-            <i class="pi pi-image" />
+          <div class="portfolio-card__media">
+            <img
+              v-if="project.image"
+              :src="project.image"
+              :alt="project.title"
+              class="portfolio-card__img"
+              loading="lazy"
+            />
+            <div v-else class="portfolio-card__placeholder" aria-hidden="true">
+              <i class="pi pi-image" />
+            </div>
+            <div class="portfolio-card__overlay">
+              <span class="portfolio-card__category">{{ project.category }}</span>
+              <div class="portfolio-card__name">{{ project.title }}</div>
+            </div>
           </div>
-          <span class="portfolio-card__category">{{ project.category }}</span>
-          <div class="portfolio-card__title">{{ project.title }}</div>
         </div>
       </div>
     </div>
@@ -45,51 +55,89 @@ onMounted(async () => {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  margin-bottom: 40px;
+  margin-bottom: 48px;
 }
 
 .section-header--row .section-title {
   margin: 0;
 }
 
+.section-link {
+  font-weight: 600;
+  font-size: 15px;
+}
+
 .portfolio-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
+  gap: 28px;
 }
 
 .portfolio-card {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
 }
 
 .portfolio-card__media {
-  height: 200px;
-  border: 1px dashed var(--p-surface-300);
-  border-radius: 8px;
+  position: relative;
+  height: 260px;
   background: var(--p-content-hover-background);
+}
+
+.portfolio-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.portfolio-card:hover .portfolio-card__img {
+  transform: scale(1.08);
+}
+
+.portfolio-card__placeholder {
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--p-text-muted-color);
-  font-size: 28px;
+  font-size: 32px;
+  background: var(--p-content-hover-background);
 }
 
-.portfolio-card__media--img {
-  border: none;
-  object-fit: cover;
-  width: 100%;
+.portfolio-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(30, 27, 75, 0.85) 0%, transparent 60%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 24px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.portfolio-card:hover .portfolio-card__overlay {
+  opacity: 1;
 }
 
 .portfolio-card__category {
-  font-size: 11px;
-  color: var(--p-text-muted-color);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent-400);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
 }
 
-.portfolio-card__title {
-  font-weight: 600;
-  font-size: 15px;
+.portfolio-card__name {
+  font-weight: 700;
+  font-size: 18px;
+  color: #fff;
 }
 
 @media (max-width: 900px) {

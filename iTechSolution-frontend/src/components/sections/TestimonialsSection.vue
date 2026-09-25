@@ -50,9 +50,11 @@ const responsiveOptions = [
 </script>
 
 <template>
-  <section class="section section--muted">
+  <section class="section section--testimonials">
     <div class="container">
-      <h2 v-reveal class="section-title section-title--center">{{ t('home.testimonials.title') }}</h2>
+      <div v-reveal class="section-header">
+        <h2 class="section-title section-title--center">{{ t('home.testimonials.title') }}</h2>
+      </div>
       <Carousel
         v-reveal="100"
         :value="testimonials"
@@ -66,7 +68,10 @@ const responsiveOptions = [
       >
         <template #item="{ data }">
           <div class="testimonial-card">
-            <p>"{{ data.quote }}"</p>
+            <div class="testimonial-card__quote-icon" aria-hidden="true">
+              <i class="pi pi-quote-right" />
+            </div>
+            <p class="testimonial-card__text">"{{ data.quote }}"</p>
             <div class="testimonial-card__author">
               <img
                 class="testimonial-card__avatar"
@@ -87,13 +92,13 @@ const responsiveOptions = [
 </template>
 
 <style scoped>
-.section--muted {
-  background: var(--p-content-hover-background);
+.section--testimonials {
+  background: var(--p-content-background);
 }
 
 .section-title--center {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 48px;
 }
 
 .testimonials-carousel {
@@ -102,57 +107,84 @@ const responsiveOptions = [
 }
 
 .testimonial-card {
-  background: var(--p-content-background);
-  border: 1px solid var(--p-content-border-color);
-  border-radius: 8px;
-  padding: 24px;
+  background: var(--p-content-hover-background);
+  border-radius: 20px;
+  padding: 28px 24px 24px;
   margin: 8px 12px;
   height: calc(100% - 16px);
-  min-height: 180px;
+  min-height: 200px;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  position: relative;
+  border-top: 3px solid transparent;
+  border-image: linear-gradient(90deg, var(--p-primary-500), var(--accent-400)) 1;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.testimonial-card p {
+.testimonial-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(79, 70, 229, 0.08);
+}
+
+.testimonial-card__quote-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--p-primary-500), var(--p-primary-700));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.testimonial-card__quote-icon .pi {
+  font-size: 18px;
+  color: #fff;
+}
+
+.testimonial-card__text {
   margin: 0;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--p-text-color);
-  line-height: 1.6;
+  line-height: 1.7;
+  flex: 1;
 }
 
 .testimonial-card__author {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--p-content-border-color);
 }
 
 .testimonial-card__avatar {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   object-fit: cover;
   background: var(--p-content-border-color);
   flex-shrink: 0;
+  border: 2px solid var(--p-primary-200);
 }
 
 .testimonial-card__name {
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 700;
 }
 
 .testimonial-card__role {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--p-text-muted-color);
+  margin-top: 2px;
 }
 
-/* Equal-height carousel items */
 .testimonials-carousel :deep(.p-carousel-item) {
   display: flex;
 }
 
 .testimonials-carousel :deep(.p-carousel-indicator-list) {
-  margin-top: 8px;
+  margin-top: 12px;
 }
 </style>

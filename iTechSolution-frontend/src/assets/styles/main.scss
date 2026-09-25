@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html,
 body {
   margin: 0;
@@ -11,6 +15,8 @@ body {
   font-family: var(--font-sans);
   background: var(--p-content-background);
   color: var(--p-text-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #app {
@@ -41,14 +47,17 @@ a:hover {
 }
 
 .section-title {
-  font-size: 30px;
-  font-weight: 700;
+  font-size: clamp(26px, 3vw, 34px);
+  font-weight: 800;
   margin: 0 0 12px;
+  letter-spacing: -0.02em;
 }
 
 .section-subtitle {
   color: var(--p-text-muted-color);
   margin: 0 0 40px;
+  font-size: 15px;
+  line-height: 1.7;
 }
 
 .reveal {
