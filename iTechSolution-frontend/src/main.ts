@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import { createHead } from '@unhead/vue/client'
 import PrimeVue from 'primevue/config'
 import 'primeicons/primeicons.css'
 
@@ -13,8 +14,10 @@ import { vReveal } from './directives/reveal'
 import './assets/styles/main.scss'
 
 const app = createApp(App)
+const head = createHead()
 
 app.use(createPinia())
+app.use(head)
 app.use(router)
 app.use(i18n)
 app.use(PrimeVue, { theme: primevueConfig })

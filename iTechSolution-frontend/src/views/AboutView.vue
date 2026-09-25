@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import { useSeo } from '@/composables/useSeo'
 import { getAboutContent } from '@/services/content.service'
 import type { AboutContent } from '@/types/content'
 import StatCounter from '@/components/sections/StatCounter.vue'
+
+useSeo({ title: 'Giới thiệu', description: 'Tìm hiểu về iTechSolution — đội ngũ, tầm nhìn và giá trị cốt lõi.' })
 
 const content = ref<AboutContent | null>(null)
 

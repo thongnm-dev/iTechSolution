@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import { useSeo } from '@/composables/useSeo'
 import { getProjects } from '@/services/content.service'
 import type { Project } from '@/types/content'
+
+useSeo({ title: 'Dự án', description: 'Những dự án tiêu biểu iTechSolution đã triển khai cho khách hàng ở nhiều lĩnh vực.' })
 
 const projects = ref<Project[]>([])
 

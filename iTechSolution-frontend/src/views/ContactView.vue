@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useSeo } from '@/composables/useSeo'
 import InputText from 'primevue/inputtext'
 import Textarea from 'primevue/textarea'
 import Button from 'primevue/button'
@@ -8,6 +9,8 @@ import Message from 'primevue/message'
 import { submitContact } from '@/services/contact.service'
 
 const { t } = useI18n()
+
+useSeo({ title: 'Liên hệ', description: 'Liên hệ iTechSolution để tư vấn giải pháp công nghệ cho doanh nghiệp của bạn.' })
 
 const form = reactive({
   name: '',

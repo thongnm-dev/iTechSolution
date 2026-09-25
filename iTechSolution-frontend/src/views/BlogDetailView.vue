@@ -3,6 +3,7 @@ import { computed, onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import DOMPurify from 'dompurify'
 import Tag from 'primevue/tag'
+import { useSeo } from '@/composables/useSeo'
 import PostCard from '@/components/blog/PostCard.vue'
 import { getPostBySlug, getRelatedPosts } from '@/services/blog.service'
 import type { Post } from '@/types/blog'
@@ -12,6 +13,12 @@ const { t } = useI18n()
 
 const post = ref<Post | null>(null)
 const relatedPosts = ref<Post[]>([])
+
+const postTitle = computed(() => post.value?.title ?? 'Bài viết')
+useSeo({
+  title: postTitle,
+  description: computed(() => post.value?.excerpt ?? ''),
+})
 
 const sanitizedContent = computed(() => (post.value ? DOMPurify.sanitize(post.value.content) : ''))
 

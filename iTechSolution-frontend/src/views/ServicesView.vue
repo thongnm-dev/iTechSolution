@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import { useSeo } from '@/composables/useSeo'
 import { getServices } from '@/services/content.service'
 import type { Service } from '@/types/content'
+
+useSeo({ title: 'Dịch vụ', description: 'Các dịch vụ phát triển web, ứng dụng di động, backend API và DevOps tại iTechSolution.' })
 
 const services = ref<Service[]>([])
 

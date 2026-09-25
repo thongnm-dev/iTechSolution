@@ -5,11 +5,15 @@ import IconField from 'primevue/iconfield'
 import InputIcon from 'primevue/inputicon'
 import InputText from 'primevue/inputtext'
 import Paginator, { type PageState } from 'primevue/paginator'
+import Skeleton from 'primevue/skeleton'
 import PostCard from '@/components/blog/PostCard.vue'
+import { useSeo } from '@/composables/useSeo'
 import { getCategories, getPosts } from '@/services/blog.service'
 import type { Category, Post } from '@/types/blog'
 
 const { t } = useI18n()
+
+useSeo({ title: 'Blog', description: 'Cập nhật tin tức công nghệ, chia sẻ kiến thức và kinh nghiệm từ đội ngũ iTechSolution.' })
 
 const posts = ref<Post[]>([])
 const categories = ref<Category[]>([])
@@ -18,8 +22,10 @@ const page = ref(1)
 const pageSize = 6
 const search = ref('')
 const activeCategory = ref<string | null>(null)
+const loading = ref(true)
 
 async function loadPosts() {
+  loading.value = true
   const result = await getPosts({
     page: page.value,
     pageSize,
@@ -28,6 +34,7 @@ async function loadPosts() {
   })
   posts.value = result.data
   total.value = result.total
+  loading.value = false
 }
 
 function selectCategory(slug: string | null) {
@@ -49,13 +56,21 @@ onMounted(async () => {
 
 <template>
   <div>
-    <section class="blog-header">
-      <div class="container">
-        <span class="breadcrumb">{{ t('nav.home') }} / <strong>{{ t('nav.blog') }}</strong></span>
-        <h1 class="section-title">{{ t('blog.title') }}</h1>
+    <!-- Hero -->
+    <section class="blog-hero">
+      <div class="blog-hero__blob blog-hero__blob--1" aria-hidden="true" />
+      <div class="blog-hero__blob blog-hero__blob--2" aria-hidden="true" />
+      <div class="container blog-hero__inner">
+        <span v-reveal class="breadcrumb">{{ t('nav.home') }} / <strong>{{ t('nav.blog') }}</strong></span>
+        <h1 v-reveal="60">{{ t('blog.title') }}</h1>
+        <p v-reveal="120" class="blog-hero__subtitle">
+          Cập nhật tin tức công nghệ, chia sẻ kiến thức và kinh nghiệm
+          từ đội ngũ kỹ sư iTechSolution.
+        </p>
       </div>
     </section>
 
+    <!-- Filters -->
     <section class="blog-filters">
       <div class="container blog-filters__inner">
         <div class="chips">
@@ -85,44 +100,109 @@ onMounted(async () => {
       </div>
     </section>
 
-    <section class="container blog-content">
-      <div class="blog-content__main">
-        <p v-if="!posts.length" class="empty-state">Chưa có bài viết nào.</p>
-        <div v-else class="posts-grid">
-          <PostCard v-for="post in posts" :key="post.id" :post="post" />
+    <!-- Content -->
+    <section class="section">
+      <div class="container">
+        <!-- Loading skeleton -->
+        <div v-if="loading" class="posts-grid">
+          <div v-for="i in pageSize" :key="i" class="skeleton-card">
+            <Skeleton height="200px" border-radius="16px" />
+            <Skeleton width="40%" height="12px" class="skeleton-card__meta" />
+            <Skeleton width="80%" height="18px" />
+            <Skeleton width="100%" height="14px" />
+            <Skeleton width="60%" height="14px" />
+          </div>
         </div>
+
+        <!-- Posts -->
+        <template v-else>
+          <p v-if="!posts.length" class="empty-state">Chưa có bài viết nào.</p>
+          <div v-else class="posts-grid">
+            <PostCard v-for="(post, index) in posts" :key="post.id" v-reveal="index * 80" :post="post" />
+          </div>
+        </template>
+
         <Paginator
+          v-if="total > pageSize"
           :rows="pageSize"
           :total-records="total"
           :first="(page - 1) * pageSize"
           @page="onPageChange"
         />
       </div>
-
-      <aside class="blog-content__sidebar">
-        <div class="widget">
-          <div class="widget__title">Danh mục</div>
-          <RouterLink v-for="category in categories" :key="category.slug" to="/blog" @click.prevent="selectCategory(category.slug)">
-            {{ category.name }}
-          </RouterLink>
-        </div>
-      </aside>
     </section>
   </div>
 </template>
 
 <style scoped>
-.blog-header {
-  background: var(--p-content-hover-background);
-  padding: 32px 0;
-  border-bottom: 1px solid var(--p-content-border-color);
+/* ── Hero ────────────────────────────────── */
+.blog-hero {
+  position: relative;
+  background: linear-gradient(160deg, rgba(30, 27, 75, 0.95), rgba(79, 70, 229, 0.85));
+  padding: 72px 0 88px;
+  overflow: hidden;
+  color: #fff;
 }
 
-.breadcrumb {
+.blog-hero__blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.blog-hero__blob--1 {
+  width: 400px;
+  height: 400px;
+  background: var(--accent-400);
+  top: -120px;
+  right: -60px;
+}
+
+.blog-hero__blob--2 {
+  width: 300px;
+  height: 300px;
+  background: var(--p-primary-300);
+  bottom: -80px;
+  left: -40px;
+}
+
+.blog-hero__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+}
+
+.blog-hero .breadcrumb {
   font-size: 13px;
-  color: var(--p-text-muted-color);
+  color: rgba(255, 255, 255, 0.6);
 }
 
+.blog-hero .breadcrumb strong {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.blog-hero h1 {
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 800;
+  line-height: 1.15;
+  margin: 20px 0 16px;
+  background: linear-gradient(135deg, #fff 30%, var(--accent-400) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.blog-hero__subtitle {
+  font-size: 17px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.7;
+  margin: 0;
+  max-width: 560px;
+}
+
+/* ── Filters ─────────────────────────────── */
 .blog-filters {
   border-bottom: 1px solid var(--p-content-border-color);
   padding: 20px 0;
@@ -146,10 +226,17 @@ onMounted(async () => {
   border: 1px solid var(--p-content-border-color);
   background: var(--p-content-background);
   border-radius: 999px;
-  padding: 6px 14px;
+  padding: 6px 16px;
   font-size: 13px;
+  font-weight: 500;
   color: var(--p-text-color);
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.chip:hover {
+  border-color: var(--p-primary-400);
+  color: var(--p-primary-600);
 }
 
 .chip--active {
@@ -158,17 +245,11 @@ onMounted(async () => {
   color: #fff;
 }
 
-.blog-content {
-  display: flex;
-  gap: 40px;
-  padding: 40px 24px 80px;
-}
-
-.blog-content__main {
-  flex: 2.6;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+/* ── Grid ────────────────────────────────── */
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
 }
 
 .empty-state {
@@ -177,39 +258,19 @@ onMounted(async () => {
   padding: 60px 0;
 }
 
-.posts-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 28px;
-}
-
-.blog-content__sidebar {
-  flex: 1;
+/* ── Skeleton ────────────────────────────── */
+.skeleton-card {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 12px;
 }
 
-.widget {
-  border: 1px solid var(--p-content-border-color);
-  border-radius: 8px;
-  padding: 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  font-size: 13px;
+.skeleton-card__meta {
+  margin-top: 4px;
 }
 
-.widget__title {
-  font-weight: 600;
-  font-size: 14px;
-}
-
+/* ── Responsive ──────────────────────────── */
 @media (max-width: 900px) {
-  .blog-content {
-    flex-direction: column;
-  }
-
   .posts-grid {
     grid-template-columns: 1fr;
   }
