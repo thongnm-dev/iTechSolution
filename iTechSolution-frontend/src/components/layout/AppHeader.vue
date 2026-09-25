@@ -29,7 +29,7 @@ function closeMobile() {
     <div class="container app-header__inner">
       <RouterLink to="/" class="app-header__logo">iTechSolution</RouterLink>
 
-      <nav class="app-header__nav">
+      <nav class="app-header__nav" :aria-label="t('a11y.mainNav')">
         <RouterLink v-for="link in navLinks" :key="link.key" :to="link.to" class="app-header__link">
           {{ t(`nav.${link.key}`) }}
         </RouterLink>
@@ -40,7 +40,7 @@ function closeMobile() {
         <button
           class="app-header__theme-toggle"
           type="button"
-          :aria-label="themeStore.dark ? 'Chuyển sang giao diện sáng' : 'Chuyển sang giao diện tối'"
+          :aria-label="themeStore.dark ? t('a11y.lightMode') : t('a11y.darkMode')"
           @click="themeStore.toggle()"
         >
           <i :class="themeStore.dark ? 'pi pi-sun' : 'pi pi-moon'" />
@@ -51,7 +51,9 @@ function closeMobile() {
         <button
           class="app-header__hamburger"
           type="button"
-          aria-label="Menu"
+          :aria-label="t('a11y.menu')"
+          :aria-expanded="mobileOpen"
+          aria-controls="mobile-menu"
           @click="mobileOpen = !mobileOpen"
         >
           <i :class="mobileOpen ? 'pi pi-times' : 'pi pi-bars'" />
@@ -61,7 +63,7 @@ function closeMobile() {
 
     <!-- Mobile Menu -->
     <Transition name="slide">
-      <div v-if="mobileOpen" class="mobile-menu">
+      <div v-if="mobileOpen" id="mobile-menu" class="mobile-menu" role="region" :aria-label="t('a11y.menu')">
         <nav class="mobile-menu__nav">
           <RouterLink
             v-for="link in navLinks"

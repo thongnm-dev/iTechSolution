@@ -1,11 +1,14 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import AppHeader from '@/components/layout/AppHeader.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
 import BackToTop from '@/components/layout/BackToTop.vue'
+
+const { t } = useI18n()
 </script>
 
 <template>
-  <a href="#main-content" class="skip-link">Bỏ qua đến nội dung chính</a>
+  <a href="#main-content" class="skip-link">{{ t('a11y.skipToContent') }}</a>
   <AppHeader />
   <main id="main-content" class="app-main">
     <slot />

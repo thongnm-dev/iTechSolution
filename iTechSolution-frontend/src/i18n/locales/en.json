@@ -87,8 +87,12 @@
     "breadcrumb": "Contact",
     "heroSubtitle": "Have a project or need technology consulting? Leave your information and the iTechSolution team will respond within 24 business hours.",
     "formTitle": "Send us a message",
+    "successTitle": "Sent successfully!",
     "successMessage": "Thank you for contacting us. We will respond as soon as possible.",
+    "sendAnother": "Send another message",
     "errorMessage": "An error occurred. Please try again later.",
+    "required": "This field is required",
+    "invalidEmail": "Invalid email address",
     "nameLabel": "Full name",
     "namePlaceholder": "John Doe",
     "emailLabel": "Email",
@@ -143,5 +147,14 @@
   },
   "common": {
     "comingSoon": "This page is under construction."
+  },
+  "a11y": {
+    "mainNav": "Main navigation",
+    "menu": "Menu",
+    "language": "Select language",
+    "darkMode": "Switch to dark mode",
+    "lightMode": "Switch to light mode",
+    "backToTop": "Scroll to top",
+    "skipToContent": "Skip to main content"
   }
 }

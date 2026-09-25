@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const visible = ref(false)
 
@@ -21,7 +24,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
       v-if="visible"
       type="button"
       class="back-to-top"
-      aria-label="Cuộn lên đầu trang"
+      :aria-label="t('a11y.backToTop')"
       @click="scrollToTop"
     >
       <i class="pi pi-arrow-up" />

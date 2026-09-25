@@ -21,8 +21,21 @@ const form = reactive({
 const submitted = ref(false)
 const submitting = ref(false)
 const errorMessage = ref('')
+const touched = reactive({ name: false, email: false, message: false })
+
+const isValidEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)
+
+const errors = {
+  get name() { return touched.name && !form.name.trim() },
+  get email() { return touched.email && (!form.email.trim() || !isValidEmail(form.email)) },
+  get message() { return touched.message && !form.message.trim() },
+}
+
+const canSubmit = () => form.name.trim() && form.email.trim() && isValidEmail(form.email) && form.message.trim()
 
 async function handleSubmit() {
+  touched.name = touched.email = touched.message = true
+  if (!canSubmit()) return
   submitting.value = true
   errorMessage.value = ''
   try {
@@ -31,6 +44,7 @@ async function handleSubmit() {
     form.name = ''
     form.email = ''
     form.message = ''
+    touched.name = touched.email = touched.message = false
   } catch {
     errorMessage.value = t('contact.errorMessage')
   } finally {
@@ -66,30 +80,41 @@ const contactInfo = [
         <div v-reveal class="contact-form-wrap">
           <h2 class="contact-form__title">{{ t('contact.formTitle') }}</h2>
 
-          <Message v-if="submitted" severity="success" :closable="false" class="contact__message">
-            {{ t('contact.successMessage') }}
-          </Message>
-          <Message v-if="errorMessage" severity="error" :closable="false" class="contact__message">
-            {{ errorMessage }}
-          </Message>
+          <Transition name="fade" mode="out-in">
+            <div v-if="submitted" class="contact__success">
+              <div class="contact__success-icon">
+                <i class="pi pi-check-circle" />
+              </div>
+              <h3>{{ t('contact.successTitle') }}</h3>
+              <p>{{ t('contact.successMessage') }}</p>
+              <Button :label="t('contact.sendAnother')" severity="secondary" outlined @click="submitted = false" />
+            </div>
 
-          <form class="contact__form" @submit.prevent="handleSubmit">
-            <div class="field-row">
-              <div class="field">
-                <label for="contact-name">{{ t('contact.nameLabel') }}</label>
-                <InputText id="contact-name" v-model="form.name" :placeholder="t('contact.namePlaceholder')" required />
+            <form v-else class="contact__form" @submit.prevent="handleSubmit">
+              <Message v-if="errorMessage" severity="error" :closable="false" class="contact__message">
+                {{ errorMessage }}
+              </Message>
+
+              <div class="field-row">
+                <div class="field" :class="{ 'field--error': errors.name }">
+                  <label for="contact-name">{{ t('contact.nameLabel') }}</label>
+                  <InputText id="contact-name" v-model="form.name" :placeholder="t('contact.namePlaceholder')" :invalid="errors.name" @blur="touched.name = true" />
+                  <small v-if="errors.name" class="field__error">{{ t('contact.required') }}</small>
+                </div>
+                <div class="field" :class="{ 'field--error': errors.email }">
+                  <label for="contact-email">{{ t('contact.emailLabel') }}</label>
+                  <InputText id="contact-email" v-model="form.email" type="email" placeholder="email@example.com" :invalid="errors.email" @blur="touched.email = true" />
+                  <small v-if="errors.email" class="field__error">{{ t('contact.invalidEmail') }}</small>
+                </div>
               </div>
-              <div class="field">
-                <label for="contact-email">{{ t('contact.emailLabel') }}</label>
-                <InputText id="contact-email" v-model="form.email" type="email" placeholder="email@example.com" required />
+              <div class="field" :class="{ 'field--error': errors.message }">
+                <label for="contact-message">{{ t('contact.messageLabel') }}</label>
+                <Textarea id="contact-message" v-model="form.message" rows="6" :placeholder="t('contact.messagePlaceholder')" :invalid="errors.message" @blur="touched.message = true" />
+                <small v-if="errors.message" class="field__error">{{ t('contact.required') }}</small>
               </div>
-            </div>
-            <div class="field">
-              <label for="contact-message">{{ t('contact.messageLabel') }}</label>
-              <Textarea id="contact-message" v-model="form.message" rows="6" :placeholder="t('contact.messagePlaceholder')" required />
-            </div>
-            <Button type="submit" :label="t('home.cta.button')" :loading="submitting" raised />
-          </form>
+              <Button type="submit" :label="t('home.cta.button')" :loading="submitting" raised />
+            </form>
+          </Transition>
         </div>
 
         <!-- Info Sidebar -->
@@ -110,9 +135,9 @@ const contactInfo = [
           <div class="contact-info__social">
             <div class="contact-info__social-label">{{ t('contact.followUs') }}</div>
             <div class="contact-info__social-links">
-              <a href="#" aria-label="Facebook"><i class="pi pi-facebook" /></a>
-              <a href="#" aria-label="LinkedIn"><i class="pi pi-linkedin" /></a>
-              <a href="#" aria-label="GitHub"><i class="pi pi-github" /></a>
+              <a href="https://facebook.com/itechsolution.vn" target="_blank" rel="noopener" aria-label="Facebook"><i class="pi pi-facebook" /></a>
+              <a href="https://linkedin.com/company/itechsolution" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="pi pi-linkedin" /></a>
+              <a href="https://github.com/thongnm-dev" target="_blank" rel="noopener" aria-label="GitHub"><i class="pi pi-github" /></a>
             </div>
           </div>
         </div>
@@ -332,6 +357,79 @@ const contactInfo = [
 
 .contact-info__social-links .pi {
   font-size: 18px;
+}
+
+/* ── Success State ──────────────────────── */
+.contact__success {
+  text-align: center;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.contact__success-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--p-primary-500), var(--p-primary-700));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: success-pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.contact__success-icon .pi {
+  font-size: 36px;
+  color: #fff;
+}
+
+.contact__success h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 8px 0 0;
+}
+
+.contact__success p {
+  color: var(--p-text-muted-color);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 360px;
+}
+
+@keyframes success-pop {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.15); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ── Validation ─────────────────────────── */
+.field__error {
+  color: var(--p-red-500);
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.field--error label {
+  color: var(--p-red-500);
+}
+
+/* ── Transitions ────────────────────────── */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.fade-enter-from {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(-12px);
 }
 
 /* ── Responsive ──────────────────────────── */

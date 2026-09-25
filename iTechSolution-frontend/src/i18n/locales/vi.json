@@ -87,8 +87,12 @@
     "breadcrumb": "Liên hệ",
     "heroSubtitle": "Bạn có dự án hoặc cần tư vấn giải pháp công nghệ? Hãy để lại thông tin, đội ngũ iTechSolution sẽ liên hệ và phản hồi trong vòng 24 giờ làm việc.",
     "formTitle": "Gửi tin nhắn cho chúng tôi",
+    "successTitle": "Gửi thành công!",
     "successMessage": "Cảm ơn bạn đã liên hệ, chúng tôi sẽ phản hồi sớm nhất.",
+    "sendAnother": "Gửi tin nhắn khác",
     "errorMessage": "Đã có lỗi xảy ra, vui lòng thử lại sau.",
+    "required": "Trường này là bắt buộc",
+    "invalidEmail": "Email không hợp lệ",
     "nameLabel": "Họ và tên",
     "namePlaceholder": "Nguyễn Văn A",
     "emailLabel": "Email",
@@ -143,5 +147,14 @@
   },
   "common": {
     "comingSoon": "Nội dung đang được xây dựng."
+  },
+  "a11y": {
+    "mainNav": "Điều hướng chính",
+    "menu": "Menu",
+    "language": "Chọn ngôn ngữ",
+    "darkMode": "Chuyển sang giao diện tối",
+    "lightMode": "Chuyển sang giao diện sáng",
+    "backToTop": "Cuộn lên đầu trang",
+    "skipToContent": "Bỏ qua đến nội dung chính"
   }
 }

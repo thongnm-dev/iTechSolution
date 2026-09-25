@@ -87,8 +87,12 @@
     "breadcrumb": "お問い合わせ",
     "heroSubtitle": "プロジェクトがある、またはテクノロジーコンサルティングが必要ですか？情報を残していただければ、iTechSolutionチームが24営業時間以内にご連絡いたします。",
     "formTitle": "メッセージを送る",
+    "successTitle": "送信完了！",
     "successMessage": "お問い合わせいただきありがとうございます。できるだけ早くご返信いたします。",
+    "sendAnother": "別のメッセージを送信",
     "errorMessage": "エラーが発生しました。後でもう一度お試しください。",
+    "required": "この項目は必須です",
+    "invalidEmail": "メールアドレスが無効です",
     "nameLabel": "お名前",
     "namePlaceholder": "山田太郎",
     "emailLabel": "メール",
@@ -143,5 +147,14 @@
   },
   "common": {
     "comingSoon": "このページは準備中です。"
+  },
+  "a11y": {
+    "mainNav": "メインナビゲーション",
+    "menu": "メニュー",
+    "language": "言語を選択",
+    "darkMode": "ダークモードに切り替え",
+    "lightMode": "ライトモードに切り替え",
+    "backToTop": "ページトップへ",
+    "skipToContent": "メインコンテンツへスキップ"
   }
 }

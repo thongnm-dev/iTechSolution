@@ -14,9 +14,9 @@ const year = new Date().getFullYear()
         <div class="app-footer__logo">iTechSolution</div>
         <p>{{ t('footer.brandDesc') }}</p>
         <div class="app-footer__social">
-          <a href="#" aria-label="Facebook"><i class="pi pi-facebook" /></a>
-          <a href="#" aria-label="LinkedIn"><i class="pi pi-linkedin" /></a>
-          <a href="#" aria-label="GitHub"><i class="pi pi-github" /></a>
+          <a href="https://facebook.com/itechsolution.vn" target="_blank" rel="noopener" aria-label="Facebook"><i class="pi pi-facebook" /></a>
+          <a href="https://linkedin.com/company/itechsolution" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="pi pi-linkedin" /></a>
+          <a href="https://github.com/thongnm-dev" target="_blank" rel="noopener" aria-label="GitHub"><i class="pi pi-github" /></a>
         </div>
       </div>
 
@@ -39,7 +39,7 @@ const year = new Date().getFullYear()
       <div class="app-footer__col">
         <div class="app-footer__heading">{{ t('footer.newsletter') }}</div>
         <p class="app-footer__newsletter-desc">{{ t('footer.newsletterDesc') }}</p>
-        <form class="app-footer__newsletter" @submit.prevent>
+        <form class="app-footer__newsletter" :aria-label="t('footer.newsletter')" @submit.prevent>
           <label for="footer-email" class="sr-only">{{ t('footer.newsletterPlaceholder') }}</label>
           <InputText id="footer-email" type="email" :placeholder="t('footer.newsletterPlaceholder')" size="small" />
           <Button :label="t('footer.subscribe')" size="small" />

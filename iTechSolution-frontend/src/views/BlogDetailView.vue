@@ -20,6 +20,8 @@ const postTitle = computed(() => post.value?.title ?? t('blog.defaultTitle'))
 useSeo({
   title: postTitle,
   description: computed(() => post.value?.excerpt ?? ''),
+  image: computed(() => post.value?.cover_image ?? ''),
+  type: 'article',
 })
 
 const sanitizedContent = computed(() => (post.value ? DOMPurify.sanitize(post.value.content) : ''))

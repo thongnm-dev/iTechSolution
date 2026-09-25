@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://itechsolution.vn/</loc><priority>1.0</priority></url>
-  <url><loc>https://itechsolution.vn/about</loc><priority>0.8</priority></url>
-  <url><loc>https://itechsolution.vn/services</loc><priority>0.8</priority></url>
-  <url><loc>https://itechsolution.vn/portfolio</loc><priority>0.7</priority></url>
-  <url><loc>https://itechsolution.vn/blog</loc><priority>0.7</priority></url>
-  <url><loc>https://itechsolution.vn/contact</loc><priority>0.7</priority></url>
+  <url><loc>https://itechsolution.vn/</loc><lastmod>2026-09-25</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://itechsolution.vn/about</loc><lastmod>2026-09-25</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://itechsolution.vn/services</loc><lastmod>2026-09-25</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://itechsolution.vn/portfolio</loc><lastmod>2026-09-25</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://itechsolution.vn/blog</loc><lastmod>2026-09-25</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://itechsolution.vn/contact</loc><lastmod>2026-09-25</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>

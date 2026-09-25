@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import Select from 'primevue/select'
 import { useLocaleStore } from '@/stores/locale.store'
 import type { Locale } from '@/i18n'
+
+const { t } = useI18n()
 
 const localeStore = useLocaleStore()
 
@@ -24,7 +27,7 @@ const selected = computed<Locale>({
     :options="options"
     option-label="label"
     option-value="value"
-    aria-label="Ngôn ngữ"
+    :aria-label="t('a11y.language')"
     class="lang-select"
   />
 </template>
