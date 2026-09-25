@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 import DOMPurify from 'dompurify'
 import Tag from 'primevue/tag'
 import { useSeo } from '@/composables/useSeo'
+import ReadingProgress from '@/components/layout/ReadingProgress.vue'
 import PostCard from '@/components/blog/PostCard.vue'
 import { getPostBySlug, getRelatedPosts } from '@/services/blog.service'
 import type { Post } from '@/types/blog'
@@ -43,6 +44,7 @@ onMounted(() => loadPost(props.slug))
 
 <template>
   <div v-if="post">
+    <ReadingProgress />
     <section class="post-header">
       <div class="container">
         <span class="breadcrumb">

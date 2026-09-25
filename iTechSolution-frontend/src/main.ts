@@ -26,4 +26,11 @@ app.directive('reveal', vReveal)
 useLocaleStore().init()
 useThemeStore().init()
 
-app.mount('#app')
+router.isReady().then(() => {
+  app.mount('#app')
+  const preloader = document.getElementById('preloader')
+  if (preloader) {
+    preloader.classList.add('hide')
+    setTimeout(() => preloader.remove(), 400)
+  }
+})
