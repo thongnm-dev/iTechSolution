@@ -172,6 +172,7 @@ onMounted(async () => {
 .services-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
   gap: 28px;
 }
 
@@ -183,6 +184,7 @@ onMounted(async () => {
   background: var(--p-content-background);
   transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
   position: relative;
+  height: 100%;
 }
 
 .service-card::before {
@@ -213,7 +215,7 @@ onMounted(async () => {
 
 .service-card__media {
   width: 220px;
-  min-height: 200px;
+  min-height: 220px;
   flex-shrink: 0;
   background: var(--p-content-hover-background);
   display: flex;
@@ -254,6 +256,7 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  flex: 1;
 }
 
 .service-card__title {
