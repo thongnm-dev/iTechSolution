@@ -1,0 +1,93 @@
+# Development compose — bind-mounts source code for live reload.
+#
+# Usage:
+#   cd deploy/docker
+#   copy ..\.env.dev.example ..\.env  (Windows)
+#   # cp ../.env.dev.example ../.env  (Linux/Mac)
+#   # Edit ../.env — set APP_KEY and DB_PASSWORD at minimum
+#   docker compose --env-file ../.env -f docker-compose.dev.yml up --build
+
+name: itechsolution-dev
+
+services:
+  # ── Frontend (Vite dev server with HMR) ──────────────────────────
+  frontend:
+    image: node:22-alpine
+    working_dir: /app
+    volumes:
+      - ../../iTechSolution-frontend:/app
+      - frontend-node-modules:/app/node_modules
+    command: sh -c "npm install && npm run dev -- --host"
+    ports:
+      - "${FRONTEND_PORT:-5173}:5173"
+    environment:
+      DOCKER: "true"
+      VITE_API_URL: http://localhost:${BACKEND_PORT:-8000}/api
+    networks:
+      - app
+
+  # ── Backend (php artisan serve) ──────────────────────────────────
+  backend:
+    build:
+      context: ../..
+      dockerfile: deploy/docker/Dockerfile.dev
+    container_name: itechsolution-dev-backend
+    volumes:
+      - ../../iTechSolution-backend:/var/www/html
+      - backend-vendor:/var/www/html/vendor
+    command: >
+      sh -c "composer install --no-interaction &&
+             php artisan migrate --force --no-interaction 2>/dev/null;
+             php artisan serve --host=0.0.0.0 --port=8000"
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    environment:
+      APP_NAME: ${APP_NAME:-iTechSolution}
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_URL: http://localhost:${BACKEND_PORT:-8000}
+      APP_KEY: ${APP_KEY}
+      DB_CONNECTION: pgsql
+      DB_HOST: postgres
+      DB_PORT: ${DB_PORT:-5434}
+      DB_DATABASE: ${DB_DATABASE:-laravel}
+      DB_USERNAME: ${DB_USERNAME:-laravel}
+      DB_PASSWORD: ${DB_PASSWORD}
+      SESSION_DRIVER: database
+      CACHE_STORE: array
+      LOG_CHANNEL: stderr
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - app
+
+  # ── PostgreSQL ───────────────────────────────────────────────────
+  postgres:
+    image: postgres:18-alpine
+    container_name: itechsolution-dev-postgres
+    command: -p ${DB_PORT:-5434}
+    environment:
+      POSTGRES_DB: ${DB_DATABASE:-laravel}
+      POSTGRES_USER: ${DB_USERNAME:-laravel}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "${DB_PORT:-5434}:${DB_PORT:-5434}"
+    volumes:
+      - postgres-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-laravel} -d ${DB_DATABASE:-laravel} -p ${DB_PORT:-5434}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+      - app
+
+volumes:
+  postgres-data:
+  frontend-node-modules:
+  backend-vendor:
+
+networks:
+  app:
+    driver: bridge
