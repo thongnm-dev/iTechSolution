@@ -136,6 +136,11 @@
     "backendApi": "Backend & API Solutions",
     "devops": "Deployment & DevOps"
   },
+  "error": {
+    "title": "Something went wrong",
+    "description": "Unable to load content. Please try again or come back later.",
+    "retry": "Try again"
+  },
   "common": {
     "comingSoon": "This page is under construction."
   }

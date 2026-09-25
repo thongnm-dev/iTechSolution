@@ -1,14 +1,17 @@
 <script setup lang="ts">
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
+import ErrorBoundary from '@/components/layout/ErrorBoundary.vue'
 </script>
 
 <template>
   <DefaultLayout>
-    <RouterView v-slot="{ Component }">
-      <Transition name="page" mode="out-in">
-        <component :is="Component" />
-      </Transition>
-    </RouterView>
+    <ErrorBoundary>
+      <RouterView v-slot="{ Component }">
+        <Transition name="page" mode="out-in">
+          <component :is="Component" />
+        </Transition>
+      </RouterView>
+    </ErrorBoundary>
   </DefaultLayout>
 </template>
 

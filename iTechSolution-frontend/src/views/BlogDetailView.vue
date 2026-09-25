@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 import DOMPurify from 'dompurify'
 import Tag from 'primevue/tag'
 import { useSeo } from '@/composables/useSeo'
+import { useJsonLd } from '@/composables/useJsonLd'
 import ReadingProgress from '@/components/layout/ReadingProgress.vue'
 import PostCard from '@/components/blog/PostCard.vue'
 import { getPostBySlug, getRelatedPosts } from '@/services/blog.service'
@@ -22,6 +23,20 @@ useSeo({
 })
 
 const sanitizedContent = computed(() => (post.value ? DOMPurify.sanitize(post.value.content) : ''))
+
+useJsonLd(computed(() => {
+  if (!post.value) return {}
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.value.title,
+    description: post.value.excerpt,
+    image: post.value.coverImage,
+    datePublished: post.value.publishedAt,
+    author: { '@type': 'Person', name: post.value.author.name },
+    publisher: { '@type': 'Organization', name: 'iTechSolution' },
+  }
+}))
 
 const shareLinks = computed(() => {
   const url = encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')

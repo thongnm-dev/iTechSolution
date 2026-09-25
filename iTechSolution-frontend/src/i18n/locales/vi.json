@@ -136,6 +136,11 @@
     "backendApi": "Giải pháp Backend & API",
     "devops": "Triển khai & DevOps"
   },
+  "error": {
+    "title": "Đã xảy ra lỗi",
+    "description": "Không thể tải nội dung. Vui lòng thử lại hoặc quay lại sau.",
+    "retry": "Thử lại"
+  },
   "common": {
     "comingSoon": "Nội dung đang được xây dựng."
   }

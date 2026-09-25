@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import { useSeo } from '@/composables/useSeo'
+import { useJsonLd } from '@/composables/useJsonLd'
 import HeroSection from '@/components/sections/HeroSection.vue'
 import AboutSection from '@/components/sections/AboutSection.vue'
 import ServicesSection from '@/components/sections/ServicesSection.vue'
@@ -8,9 +10,29 @@ import TestimonialsSection from '@/components/sections/TestimonialsSection.vue'
 import BlogPreviewSection from '@/components/sections/BlogPreviewSection.vue'
 import CtaSection from '@/components/sections/CtaSection.vue'
 
+const { t } = useI18n()
+
 useSeo({
-  title: 'Trang chủ',
-  description: 'iTechSolution — Đồng hành cùng doanh nghiệp trong chuyển đổi số với giải pháp web, mobile và cloud.',
+  title: t('nav.home'),
+  description: t('home.hero.subtitle'),
+})
+
+useJsonLd({
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'iTechSolution',
+  url: 'https://itechsolution.vn',
+  logo: 'https://itechsolution.vn/favicon.svg',
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: '(028) 1234 5678',
+    contactType: 'customer service',
+  },
+  sameAs: [
+    'https://www.facebook.com/itechsolution',
+    'https://www.linkedin.com/company/itechsolution',
+    'https://github.com/itechsolution',
+  ],
 })
 </script>
 
