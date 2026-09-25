@@ -1,25 +1,13 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { getProjects } from '@/services/content.service'
 import type { Project } from '@/types/content'
 
 const projects = ref<Project[]>([])
-const activeCategory = ref('all')
 
 onMounted(async () => {
   projects.value = await getProjects()
 })
-
-const categories = computed(() => {
-  const cats = new Set(projects.value.map((p) => p.category))
-  return ['all', ...cats]
-})
-
-const filteredProjects = computed(() =>
-  activeCategory.value === 'all'
-    ? projects.value
-    : projects.value.filter((p) => p.category === activeCategory.value),
-)
 </script>
 
 <template>
@@ -41,22 +29,9 @@ const filteredProjects = computed(() =>
     <!-- Filter + Grid -->
     <section class="section">
       <div class="container">
-        <!-- Category Filter -->
-        <div v-reveal class="filter-bar">
-          <button
-            v-for="cat in categories"
-            :key="cat"
-            :class="['filter-btn', { 'filter-btn--active': activeCategory === cat }]"
-            @click="activeCategory = cat"
-          >
-            {{ cat === 'all' ? 'Tất cả' : cat }}
-          </button>
-        </div>
-
-        <!-- Projects Grid -->
         <div class="portfolio-grid">
           <div
-            v-for="(project, index) in filteredProjects"
+            v-for="(project, index) in projects"
             :key="project.title"
             v-reveal="index * 100"
             class="portfolio-card"
@@ -165,41 +140,6 @@ const filteredProjects = computed(() =>
   line-height: 1.7;
   margin: 0;
   max-width: 560px;
-}
-
-/* ── Filter Bar ──────────────────────────── */
-.filter-bar {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 40px;
-}
-
-.filter-btn {
-  padding: 8px 20px;
-  border-radius: 100px;
-  border: 1px solid var(--p-content-border-color);
-  background: var(--p-content-background);
-  color: var(--p-text-muted-color);
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-
-.filter-btn:hover {
-  border-color: var(--p-primary-400);
-  color: var(--p-primary-600);
-}
-
-.filter-btn--active {
-  background: linear-gradient(135deg, var(--p-primary-500), var(--p-primary-700));
-  color: #fff;
-  border-color: transparent;
-}
-
-.filter-btn--active:hover {
-  color: #fff;
 }
 
 /* ── Portfolio Grid ──────────────────────── */
