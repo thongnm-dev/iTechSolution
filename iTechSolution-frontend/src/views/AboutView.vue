@@ -387,7 +387,7 @@ onMounted(async () => {
   inset: 0;
   border-radius: 20px;
   padding: 1px;
-  background: linear-gradient(135deg, var(--p-primary-400), var(--accent-400));
+  background: conic-gradient(from var(--border-angle), var(--p-primary-400), var(--accent-400), var(--p-primary-300), var(--accent-400), var(--p-primary-400));
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask-composite: exclude;
   -webkit-mask-composite: xor;
@@ -404,6 +404,7 @@ onMounted(async () => {
 
 .value-card:hover::before {
   opacity: 1;
+  animation: border-rotate 3s linear infinite;
 }
 
 .value-card__icon-wrap {
