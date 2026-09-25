@@ -41,14 +41,15 @@ onMounted(() => loadPost(props.slug))
         <span class="breadcrumb">
           {{ t('nav.home') }} / {{ t('nav.blog') }} / <strong>{{ post.title }}</strong>
         </span>
-        <div class="post-header__meta">
-          <Tag :value="post.category.name" severity="info" />
-          <span>{{ new Date(post.publishedAt).toLocaleDateString() }} · {{ post.minutesToRead }} {{ t('blog.minRead') }}</span>
-        </div>
+        <Tag :value="post.category.name" severity="info" class="post-header__tag" />
         <h1>{{ post.title }}</h1>
         <div class="post-header__author">
           <div class="avatar" aria-hidden="true" />
-          <span>{{ post.author.name }}</span>
+          <span class="post-header__author-name">{{ post.author.name }}</span>
+          <span class="post-header__separator">·</span>
+          <span class="post-header__date">{{ new Date(post.publishedAt).toLocaleDateString() }}</span>
+          <span class="post-header__separator">·</span>
+          <span class="post-header__date">{{ post.minutesToRead }} {{ t('blog.minRead') }}</span>
         </div>
       </div>
     </section>
@@ -59,26 +60,25 @@ onMounted(() => loadPost(props.slug))
       <span>Ảnh đại diện bài viết</span>
     </section>
 
+    <section class="container post-share-bar">
+      <span class="post-share-bar__label">Chia sẻ bài viết</span>
+      <div class="post-share-bar__links">
+        <a
+          v-for="link in shareLinks"
+          :key="link.label"
+          :href="link.href"
+          target="_blank"
+          rel="noopener noreferrer"
+          :aria-label="`Chia sẻ lên ${link.label}`"
+          class="share-btn"
+        >
+          <i :class="['pi', link.icon]" />
+        </a>
+      </div>
+    </section>
+
     <section class="container post-body">
       <article class="post-body__content" v-html="sanitizedContent" />
-      <aside class="post-body__sidebar">
-        <div class="widget">
-          <div class="widget__title">Chia sẻ bài viết</div>
-          <div class="widget__share">
-            <a
-              v-for="link in shareLinks"
-              :key="link.label"
-              :href="link.href"
-              target="_blank"
-              rel="noopener noreferrer"
-              :aria-label="`Chia sẻ lên ${link.label}`"
-              class="share-btn"
-            >
-              <i :class="['pi', link.icon]" />
-            </a>
-          </div>
-        </div>
-      </aside>
     </section>
 
     <section class="container post-footer">
@@ -116,13 +116,8 @@ onMounted(() => loadPost(props.slug))
   color: var(--p-text-muted-color);
 }
 
-.post-header__meta {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 16px 0;
-  font-size: 13px;
-  color: var(--p-text-muted-color);
+.post-header__tag {
+  margin: 16px 0 12px;
 }
 
 .post-header h1 {
@@ -135,8 +130,21 @@ onMounted(() => loadPost(props.slug))
 .post-header__author {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   font-size: 14px;
+}
+
+.post-header__author-name {
+  font-weight: 600;
+}
+
+.post-header__separator {
+  color: var(--p-text-muted-color);
+}
+
+.post-header__date {
+  color: var(--p-text-muted-color);
+  font-size: 13px;
 }
 
 .avatar {
@@ -177,14 +185,32 @@ onMounted(() => loadPost(props.slug))
   font-size: 32px;
 }
 
-.post-body {
+.post-share-bar {
   display: flex;
-  gap: 48px;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 24px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--p-content-border-color);
+}
+
+.post-share-bar__label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--p-text-muted-color);
+}
+
+.post-share-bar__links {
+  display: flex;
+  gap: 8px;
+}
+
+.post-body {
   padding-bottom: 40px;
 }
 
 .post-body__content {
-  flex: 2.6;
+  max-width: 800px;
   line-height: 1.8;
   color: var(--p-text-color);
 }
@@ -243,24 +269,6 @@ onMounted(() => loadPost(props.slug))
 
 .post-body__content :deep(blockquote p) {
   margin: 0;
-}
-
-.post-body__sidebar {
-  flex: 1;
-}
-
-.widget {
-  border: 1px solid var(--p-content-border-color);
-  border-radius: 8px;
-  padding: 16px;
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.widget__share {
-  display: flex;
-  gap: 10px;
-  margin-top: 12px;
 }
 
 .share-btn {
@@ -328,10 +336,6 @@ onMounted(() => loadPost(props.slug))
 }
 
 @media (max-width: 900px) {
-  .post-body {
-    flex-direction: column;
-  }
-
   .related-grid {
     grid-template-columns: 1fr;
   }
