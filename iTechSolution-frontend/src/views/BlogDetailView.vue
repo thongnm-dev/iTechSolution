@@ -41,7 +41,6 @@ onMounted(() => loadPost(props.slug))
         <span class="breadcrumb">
           {{ t('nav.home') }} / {{ t('nav.blog') }} / <strong>{{ post.title }}</strong>
         </span>
-        <Tag :value="post.category.name" severity="info" class="post-header__tag" />
         <h1>{{ post.title }}</h1>
         <div class="post-header__author">
           <div class="avatar" aria-hidden="true" />
@@ -116,11 +115,8 @@ onMounted(() => loadPost(props.slug))
   color: var(--p-text-muted-color);
 }
 
-.post-header__tag {
-  margin: 16px 0 12px;
-}
-
 .post-header h1 {
+  margin-top: 16px;
   margin: 0 0 16px;
   font-size: 34px;
   line-height: 1.3;
