@@ -36,7 +36,8 @@ export const vReveal: Directive<HTMLElement, RevealValue> = {
         for (const entry of entries) {
           if (entry.isIntersecting) {
             el.classList.add('reveal--visible')
-            io.unobserve(el)
+          } else {
+            el.classList.remove('reveal--visible')
           }
         }
       },
