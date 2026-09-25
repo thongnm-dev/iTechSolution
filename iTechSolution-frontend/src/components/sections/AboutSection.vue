@@ -5,7 +5,7 @@ import StatCounter from './StatCounter.vue'
 const { t } = useI18n()
 
 const stats = [
-  { target: 10, suffix: '+', labelKey: 'years', icon: 'pi-calendar' },
+  { target: 5, suffix: '+', labelKey: 'years', icon: 'pi-calendar' },
   { target: 50, suffix: '+', labelKey: 'projects', icon: 'pi-briefcase' },
   { target: 30, suffix: '+', labelKey: 'clients', icon: 'pi-users' },
 ] as const

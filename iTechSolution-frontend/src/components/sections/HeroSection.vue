@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import Button from 'primevue/button'
 
 const { t } = useI18n()
 </script>
@@ -30,11 +29,11 @@ const { t } = useI18n()
       <h1 v-reveal="80" class="hero__title">{{ t('home.hero.title') }}</h1>
       <p v-reveal="160" class="hero__subtitle">{{ t('home.hero.subtitle') }}</p>
       <div v-reveal="240" class="hero__actions">
-        <RouterLink to="/contact">
-          <Button :label="t('home.hero.ctaPrimary')" size="large" raised />
+        <RouterLink to="/contact" class="hero__btn-primary">
+          {{ t('home.hero.ctaPrimary') }}
         </RouterLink>
-        <RouterLink to="/services">
-          <Button :label="t('home.hero.ctaSecondary')" size="large" severity="secondary" outlined class="hero__btn-outline" />
+        <RouterLink to="/services" class="hero__btn-outline">
+          {{ t('home.hero.ctaSecondary') }}
         </RouterLink>
       </div>
     </div>
@@ -138,15 +137,22 @@ const { t } = useI18n()
   line-height: 1.15;
   margin: 0 0 20px;
   color: #fff;
-  background: linear-gradient(135deg, #fff 30%, var(--accent-400) 100%);
+  background: linear-gradient(90deg, #fff 0%, var(--accent-400) 25%, #fff 50%, var(--p-primary-200) 75%, #fff 100%);
+  background-size: 200% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: title-shimmer 4s ease-in-out infinite;
+}
+
+@keyframes title-shimmer {
+  0% { background-position: 100% 50%; }
+  100% { background-position: -100% 50%; }
 }
 
 .hero__subtitle {
   font-size: clamp(16px, 2vw, 19px);
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.92);
   line-height: 1.7;
   max-width: 560px;
   margin: 0 auto 36px;
@@ -159,14 +165,84 @@ const { t } = useI18n()
   flex-wrap: wrap;
 }
 
-.hero__btn-outline :deep(.p-button) {
-  border-color: rgba(255, 255, 255, 0.4);
+.hero__btn-primary,
+.hero__btn-outline {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  z-index: 0;
+}
+
+.hero__btn-primary::before,
+.hero__btn-outline::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  padding: 2px;
+  background: conic-gradient(from var(--border-angle), var(--accent-400), #fff, var(--p-primary-300), var(--accent-400));
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  animation: border-rotate 3s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.hero__btn-primary::after,
+.hero__btn-outline::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 8px;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.hero__btn-primary {
+  color: var(--p-primary-700);
+}
+
+.hero__btn-primary::after {
+  background: #fff;
+}
+
+.hero__btn-primary:hover {
+  color: var(--p-primary-800);
+  text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.hero__btn-primary:hover::after {
+  background: #f0f0ff;
+}
+
+.hero__btn-outline {
   color: #fff;
 }
 
-.hero__btn-outline :deep(.p-button:hover) {
-  border-color: #fff;
+.hero__btn-outline::after {
   background: rgba(255, 255, 255, 0.1);
+}
+
+.hero__btn-outline:hover {
+  color: #fff;
+  text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.hero__btn-outline:hover::after {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 @media (max-width: 600px) {
