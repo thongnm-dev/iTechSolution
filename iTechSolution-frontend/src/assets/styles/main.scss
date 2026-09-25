@@ -26,6 +26,12 @@ body {
   flex-direction: column;
 }
 
+:focus-visible {
+  outline: 2px solid var(--p-primary-500);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 a {
   color: var(--p-primary-600);
   text-decoration: none;
