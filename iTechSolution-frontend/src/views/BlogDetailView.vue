@@ -20,7 +20,7 @@ const postTitle = computed(() => post.value?.title ?? t('blog.defaultTitle'))
 useSeo({
   title: postTitle,
   description: computed(() => post.value?.excerpt ?? ''),
-  image: computed(() => post.value?.cover_image ?? ''),
+  image: computed(() => post.value?.coverImage ?? ''),
   type: 'article',
 })
 
